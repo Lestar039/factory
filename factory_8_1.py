@@ -217,14 +217,6 @@ class Factory:
         print(f'Скорость: {self.transport_speed} ед/ч')
 
 
-# ==> Test Engine, Mover, Fuel Factories <==
-# engine_1 = EngineFactory('Роторный')
-# print(engine_1.create_engine())
-# mover_1 = MoverFactory('Колесо')
-# print(mover_1.create_mover())
-# fuel_1 = FuelFactory('Бензин')
-# print(fuel_1.create_fuel())
-# ===========================
 transport_1 = Factory('Наземный', 'Поршневой', 4, 'Колесо', 3, 'Бензин', 20, 2000)
 transport_1.create_engine()
 transport_1.create_mover()
