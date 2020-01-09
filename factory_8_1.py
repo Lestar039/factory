@@ -186,25 +186,25 @@ class FuelFactory(AbstractFuel):
 # =====> Завод <=====
 class Factory:
     def __init__(
-            self, type_transport, engine, number_engine, mover,
-            number_mover, fuel, fuel_consumption, transport_speed
+            self, type_transport, engine, count_engine, mover,
+            count_mover, fuel, fuel_consumption, transport_speed
     ):
         self.type_transport = type_transport
         self.engine = engine
-        self.number_engine = number_engine
+        self.count_engine = count_engine
         self.mover = mover
-        self.number_mover = number_mover
+        self.count_mover = count_mover
         self.fuel = fuel
         self.fuel_consumption = fuel_consumption
         self.transport_speed = transport_speed
 
     def create_engine(self):
-        for number in range(self.number_engine):
+        for number in range(self.count_engine):
             number = EngineFactory(self.engine).create_engine()
             print(number)
 
     def create_mover(self):
-        for number in range(self.number_mover):
+        for number in range(self.count_mover):
             number = MoverFactory(self.mover).create_mover()
             print(number)
 
@@ -217,7 +217,7 @@ class Factory:
         print(f'Скорость: {self.transport_speed} ед/ч')
 
 
-transport_1 = Factory('Наземный', 'Поршневой', 4, 'Колесо', 3, 'Бензин', 20, 2000)
+transport_1 = Factory('Наземный', 'Поршневой', 4, 'Колесо', 3, 'Бензин', 20, 200)
 transport_1.create_engine()
 transport_1.create_mover()
 print(transport_1.create_fuel())
