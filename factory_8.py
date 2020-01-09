@@ -15,58 +15,79 @@ class AbstractFuel:
 
 class EngineFactory(AbstractEngine):
 
-    def create_engine(self, engine):
-        if engine == 'Поршневой':
+    def __init__(self, engine):
+        self.engine = engine
+
+    def create_engine(self):
+        if self.engine == 'Поршневой':
             return 'Создан поршневой двигатель'
-        elif engine == 'Роторный':
+        elif self.engine == 'Роторный':
             return 'Создан роторный двигатель'
-        elif engine == 'Реактивный':
+        elif self.engine == 'Реактивный':
             return 'Создан реактивный двигатель'
 
 
 class MoverFactory(AbstractMover):
-    def create_mover(self, factory):
-        if factory == 'Колесо':
+
+    def __init__(self, mover):
+        self.mover = mover
+
+    def create_mover(self):
+        if self.mover == 'Колесо':
             return 'Создано колесо'
-        elif factory == 'Гусеница':
+        elif self.mover == 'Гусеница':
             return 'Создана гусеница'
-        elif factory == 'Винт':
+        elif self.mover == 'Винт':
             return 'Создан винт'
-        elif factory == 'Реактивное сопло':
+        elif self.mover == 'Реактивное сопло':
             return 'Создано реактивное сопло'
 
 
 class FuelFactory(AbstractFuel):
-    def create_fuel(self, factory):
-        if factory == 'Бензин':
+
+    def __init__(self, fuel):
+        self.fuel = fuel
+
+    def create_fuel(self):
+        if self.fuel == 'Бензин':
             return 'Создан бензин'
-        elif factory == 'Дизель':
+        elif self.fuel == 'Дизель':
             return 'Создано дизельное топливо'
-        elif factory == 'Электричество':
+        elif self.fuel == 'Электричество':
             return 'Создан аккумулятор'
-        elif factory == 'Водород':
+        elif self.fuel == 'Водород':
             return 'Создано водородное топливо'
-        elif factory == 'Уран':
+        elif self.fuel == 'Уран':
             return 'Создано урановое топливо'
-        elif factory == 'Антиматерия':
+        elif self.fuel == 'Антиматерия':
             return 'Создана антиматерия'
 
 
 class Factory:
+    def __init__(self, engine, mover, fuel):
+        self.engine = engine
+        self.mover = mover
+        self.fuel = fuel
 
-    def create_engine(self, engine):
-        return EngineFactory.create_engine(self, engine)
+    def create_engine(self):
+        return EngineFactory(self.engine).create_engine()
 
-    def create_mover(self, mover):
-        return MoverFactory.create_mover(self, mover)
+    def create_mover(self):
+        return MoverFactory(self.mover).create_mover()
 
-    def create_fuel(self, fuel):
-        return FuelFactory.create_fuel(self, fuel)
-
-
-b = Factory()
-print(b.create_engine('Поршневой'))
-print(b.create_mover('Винт'))
-print((b.create_fuel('Антиматерия')))
+    def create_fuel(self):
+        return FuelFactory(self.fuel).create_fuel()
 
 
+# ==> Test Engine, Mover, Fuel Factories <==
+# engine_1 = EngineFactory('Роторный')
+# print(engine_1.create_engine())
+# mover_1 = MoverFactory('Колесо')
+# print(mover_1.create_mover())
+# fuel_1 = FuelFactory('Бензин')
+# print(fuel_1.create_fuel())
+# ===========================
+transport_1 = Factory('Поршневой', 'Колесо', 'Бензин')
+print(transport_1.create_engine())
+print(transport_1.create_mover())
+print(transport_1.create_fuel())
