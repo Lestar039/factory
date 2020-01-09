@@ -1,14 +1,3 @@
-class AbstractFactory:
-    def create_engine(self):
-        raise NotImplementedError
-
-    def create_mover(self):
-        raise NotImplementedError
-
-    def create_fuel(self):
-        raise NotImplementedError
-
-
 class AbstractEngine:
     def create_engine(self):
         raise NotImplementedError
@@ -63,7 +52,7 @@ class FuelFactory(AbstractFuel):
             return 'Создана антиматерия'
 
 
-class Factory(AbstractFactory):
+class Factory:
 
     def create_engine(self, engine):
         return EngineFactory.create_engine(self, engine)
