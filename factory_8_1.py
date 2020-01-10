@@ -1,22 +1,28 @@
 # =====> Двигатели <=====
 class AbstractEngine:
-    def engine(self):
+    def work(self):
         raise NotImplementedError
 
 
 class PistonEngine(AbstractEngine):
-    def engine(self):
-        return 'Поршневой двигатель'
+    __name = 'Поршневой двигатель'
+
+    def work(self):
+        return 'Поршневой двигатель работает'
 
 
 class RotorEngine(AbstractEngine):
-    def engine(self):
-        return 'Роторный двигатель'
+    __name = 'Роторный двигатель'
+
+    def work(self):
+        return 'Роторный двигатель работает'
 
 
 class ReactiveEngine(AbstractEngine):
-    def engine(self):
-        return 'Реактивный двигатель'
+    __name = 'Реактивный двигатель'
+
+    def work(self):
+        return 'Реактивный двигатель работает'
 
 
 # =====> Заводы двигателей <=====
@@ -31,7 +37,7 @@ class PistonFactory(AbstractEngineFactory):
     """
 
     def create_engine(self):
-        return PistonEngine().engine()
+        return PistonEngine()
 
 
 class RotorFactory(AbstractEngineFactory):
@@ -40,7 +46,7 @@ class RotorFactory(AbstractEngineFactory):
     """
 
     def create_engine(self):
-        return RotorEngine().engine()
+        return RotorEngine()
 
 
 class ReactiveFactory(AbstractEngineFactory):
@@ -49,7 +55,7 @@ class ReactiveFactory(AbstractEngineFactory):
     """
 
     def create_engine(self):
-        return ReactiveEngine().engine()
+        return ReactiveEngine()
 
 
 class EngineFactory(AbstractEngineFactory):
@@ -68,28 +74,36 @@ class EngineFactory(AbstractEngineFactory):
 
 # =====> Движители <=====
 class AbstractMover:
-    def mover(self):
+    def move(self):
         raise NotImplementedError
 
 
 class WheelsMover(AbstractMover):
-    def mover(self):
-        return 'Колесо'
+    __name = 'Колесо'
+
+    def move(self):
+        return 'Колесо крутится'
 
 
 class TrackMover(AbstractMover):
-    def mover(self):
-        return 'Гусеница'
+    __name = 'Гусеница'
+
+    def move(self):
+        return 'Гусеница крутится'
 
 
 class ScrewMover(AbstractMover):
-    def mover(self):
-        return 'Винт'
+    __name = 'Винт'
+
+    def move(self):
+        return 'Винт крутится'
 
 
 class ReactiveMover(AbstractMover):
-    def mover(self):
-        return 'Реактивный двигатель'
+    __name = 'Реактивное сопло'
+
+    def move(self):
+        return 'Реактивное сопло работает'
 
 
 # =====> Заводы движителей <=====
@@ -104,7 +118,7 @@ class WheelsFactory(AbstractMoverFactory):
     """
 
     def create_mover(self):
-        return WheelsMover().mover()
+        return WheelsMover()
 
 
 class TrackFactory(AbstractMoverFactory):
@@ -113,7 +127,7 @@ class TrackFactory(AbstractMoverFactory):
     """
 
     def create_mover(self):
-        return TrackMover().mover()
+        return TrackMover()
 
 
 class ScrewFactory(AbstractMoverFactory):
@@ -122,7 +136,7 @@ class ScrewFactory(AbstractMoverFactory):
     """
 
     def create_mover(self):
-        return ScrewMover().mover()
+        return ScrewMover()
 
 
 class ReactiveMoverFactory(AbstractMoverFactory):
@@ -131,7 +145,7 @@ class ReactiveMoverFactory(AbstractMoverFactory):
     """
 
     def create_mover(self):
-        return ReactiveMover().mover()
+        return ReactiveMover()
 
 
 class MoverFactory(AbstractMoverFactory):
@@ -152,38 +166,50 @@ class MoverFactory(AbstractMoverFactory):
 
 # =====> Топливо <=====
 class AbstractFuel:
-    def fuel(self):
+    def burn(self):
         raise NotImplementedError
 
 
 class PetrolFuel(AbstractFuel):
-    def fuel(self):
-        return 'Бензин'
+    __name = 'Бензин'
+
+    def burn(self):
+        return 'Бензин сгорает'
 
 
 class DieselFuel(AbstractFuel):
-    def fuel(self):
-        return 'Дизель'
+    __name = 'Дизель'
+
+    def burn(self):
+        return 'Дизель сгорает'
 
 
 class BatteryFuel(AbstractFuel):
-    def fuel(self):
-        return 'Батарея'
+    __name = 'Батарея'
+
+    def burn(self):
+        return 'Батарея разряжается'
 
 
 class HydrogenFuel(AbstractFuel):
-    def fuel(self):
-        return 'Водород'
+    __name = 'Водород'
+
+    def burn(self):
+        return 'Водород сгорает'
 
 
-class UranusFuel(AbstractFuel):
-    def fuel(self):
-        return 'Уран'
+class UraniumFuel(AbstractFuel):
+    __name = 'Уран'
+
+    def burn(self):
+        return 'Уран распадается'
 
 
 class AntimatterFuel(AbstractFuel):
-    def fuel(self):
-        return 'Антиматерия'
+    __name = 'Антиматерия'
+
+    def burn(self):
+        return 'Антиматерия тратится'
 
 
 # =====> Топливные заводы <=====
@@ -198,7 +224,7 @@ class PetrolFuelFactory(AbstractFuelFactory):
     """
 
     def create_fuel(self):
-        return PetrolFuel().fuel()
+        return PetrolFuel()
 
 
 class DieselFuelFactory(AbstractFuelFactory):
@@ -207,7 +233,7 @@ class DieselFuelFactory(AbstractFuelFactory):
     """
 
     def create_fuel(self):
-        return DieselFuel().fuel()
+        return DieselFuel()
 
 
 class BatteryFuelFactory(AbstractFuelFactory):
@@ -216,7 +242,7 @@ class BatteryFuelFactory(AbstractFuelFactory):
     """
 
     def create_fuel(self):
-        return BatteryFuel().fuel()
+        return BatteryFuel()
 
 
 class HydrogenFuelFactory(AbstractFuelFactory):
@@ -225,7 +251,7 @@ class HydrogenFuelFactory(AbstractFuelFactory):
     """
 
     def create_fuel(self):
-        return HydrogenFuel().fuel()
+        return HydrogenFuel()
 
 
 class UranusFuelFactory(AbstractFuelFactory):
@@ -234,7 +260,7 @@ class UranusFuelFactory(AbstractFuelFactory):
     """
 
     def create_fuel(self):
-        return UranusFuel().fuel()
+        return UraniumFuel()
 
 
 class AntimatterFuelFactory(AbstractFuelFactory):
@@ -243,7 +269,7 @@ class AntimatterFuelFactory(AbstractFuelFactory):
     """
 
     def create_fuel(self):
-        return AntimatterFuel().fuel()
+        return AntimatterFuel()
 
 
 class FuelFactory(AbstractFuelFactory):
@@ -269,20 +295,22 @@ class FuelFactory(AbstractFuelFactory):
 # =====> Завод <=====
 class Factory:
 
-    # def create(
-    #         self, type_transport, engine, count_engine, mover,
-    #         count_mover, fuel, fuel_consumption, transport_speed
-    # ):
-    #     for count in range(count_engine):
-    #         print(EngineFactory(engine).create_engine())
-    #
-    #     for count in range(count_mover):
-    #         print(MoverFactory(mover).create_mover())
-    #
-    #     print(FuelFactory(fuel).create_fuel())
-    #     print(f'Создан {type_transport} транспорт')
-    #     print(f'Расход топлива: {fuel_consumption} единиц на 1 ед. расстояния')
-    #     print(f'Скорость: {transport_speed} ед/ч')
+    def create(
+            self, type_transport, engine, count_engine, mover,
+            count_mover, fuel, fuel_consumption, transport_speed
+    ):
+        for count in range(count_engine):
+            EngineFactory(engine).create_engine()
+
+        for count in range(count_mover):
+            MoverFactory(mover).create_mover()
+
+        FuelFactory(fuel).create_fuel()
+        print(f'Создан {type_transport}')
+        print(f'Двигатель: {engine} - {count_engine} шт.')
+        print(f'Движитель: {mover} - {count_mover} шт.')
+        print(f'Расход топлива: {fuel_consumption} единиц на 1 ед. расстояния')
+        print(f'Скорость: {transport_speed} ед/ч')
 
     # def create(
     #         self, type_transport, engine, count_engine, mover,
@@ -301,25 +329,11 @@ class Factory:
     #     transport_list.append(transport_speed)
     #     return transport_list
 
-    def create(
-            self, type_transport, engine, count_engine, mover,
-            count_mover, fuel, fuel_consumption, transport_speed
-    ):
-        for count in range(count_engine):
-            EngineFactory(engine).create_engine()
-
-        for count in range(count_mover):
-            MoverFactory(mover).create_mover()
-
-        FuelFactory(fuel).create_fuel()
-        return f'Создан {type_transport} транспорт. Скорость: ' \
-               f'{transport_speed} ед/ч. Расход {fuel_consumption} ед. на 1 ед расстояния.'
-
 
 # =====> test Factory <=====
-# transport_1 = Factory().create('Наземный', 'Поршневой', 2, 'Колесо', 2, 'Бензин', 20, 200)
-transport_1 = Factory()
-print(transport_1.create('Наземный', 'Поршневой', 2, 'Колесо', 2, 'Бензин', 20, 200))
+Factory().create('Мотоцикл', 'Поршневой', 2, 'Колесо', 2, 'Бензин', 20, 200)
+# transport_1 = Factory()
+# print(transport_1.create('Мотоцикл', 'Поршневой', 2, 'Колесо', 2, 'Бензин', 20, 200))
 print('============================================')
 
 
@@ -333,9 +347,9 @@ class Fuel:
 
 
 # =====> test Fuel <=====
-fuel_1 = Fuel()
-print(fuel_1.add_fuel(400))
-print('============================================')
+# fuel_1 = Fuel()
+# print(fuel_1.add_fuel(400))
+# print('============================================')
 
 
 class TextDescriptionMove:
@@ -359,12 +373,12 @@ class TextDescriptionMove:
 
 
 # =====> test TextDescriptionMove <=====
-mover_1 = TextDescriptionMove()
-mover_1.move('forward 43')
-mover_1.move('left 70')
-mover_1.move('back 80')
-mover_1.move('right 15')
-print('============================================')
+# mover_1 = TextDescriptionMove()
+# mover_1.move('forward 43')
+# mover_1.move('left 70')
+# mover_1.move('back 80')
+# mover_1.move('right 15')
+# print('============================================')
 
 
 class Driver:
@@ -379,8 +393,7 @@ class Driver:
     def moving(self, movement):
         return TextDescriptionMove().move(movement)
 
-
 # =====> test Driver  <=====
-driver_1 = Driver('Shumaher')
-driver_1.moving('forward 78')
-print('============================================')
+# driver_1 = Driver('Shumaher')
+# driver_1.moving('forward 78')
+# print('============================================')
