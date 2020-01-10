@@ -1,37 +1,55 @@
 # =====> Двигатели <=====
 class AbstractEngine:
+    def engine(self):
+        raise NotImplementedError
+
+
+class PistonEngine(AbstractEngine):
+    def engine(self):
+        return 'Поршневой двигатель'
+
+
+class RotorEngine(AbstractEngine):
+    def engine(self):
+        return 'Роторный двигатель'
+
+
+class ReactiveEngine(AbstractEngine):
+    def engine(self):
+        return 'Реактивный двигатель'
+
+
+# =====> Заводы двигателей <=====
+class AbstractEngineFactory:
     def create_engine(self):
         raise NotImplementedError
 
 
-class PistonFactory(AbstractEngine):
+class PistonFactory(AbstractEngineFactory):
     """
     Завод поршневых двигателей
     """
-
     def create_engine(self):
-        return 'Создан поршневой двигатель'
+        return PistonEngine().engine()
 
 
-class RotorFactory(AbstractEngine):
+class RotorFactory(AbstractEngineFactory):
     """
     Завод роторных двигателей
     """
-
     def create_engine(self):
-        return 'Создан роторный двигатель'
+        return RotorEngine().engine()
 
 
-class ReactiveFactory(AbstractEngine):
+class ReactiveFactory(AbstractEngineFactory):
     """
     Завод реактивных двигателей
     """
-
     def create_engine(self):
-        return 'Создан реактивный двигатель'
+        return ReactiveEngine().engine()
 
 
-class EngineFactory:
+class EngineFactory(AbstractEngineFactory):
 
     def __init__(self, engine):
         self.engine = engine
@@ -47,47 +65,69 @@ class EngineFactory:
 
 # =====> Движители <=====
 class AbstractMover:
+    def mover(self):
+        raise NotImplementedError
+
+
+class WheelsMover(AbstractMover):
+    def mover(self):
+        return 'Колесо'
+
+
+class TrackMover(AbstractMover):
+    def mover(self):
+        return 'Гусеница'
+
+
+class ScrewMover(AbstractMover):
+    def mover(self):
+        return 'Винт'
+
+
+class ReactiveMover(AbstractMover):
+    def mover(self):
+        return 'Реактивный двигатель'
+
+
+# =====> Заводы движителей <=====
+class AbstractMoverFactory:
     def create_mover(self):
         raise NotImplementedError
 
 
-class WheelsFactory(AbstractMover):
+class WheelsFactory(AbstractMoverFactory):
     """
     Завод колес
     """
-
     def create_mover(self):
-        return 'Создано колесо'
+        return WheelsMover().mover()
 
 
-class TrackFactory(AbstractMover):
+class TrackFactory(AbstractMoverFactory):
     """
     Завод гусениц
     """
-
     def create_mover(self):
-        return 'Создана гусеница'
+        return TrackMover().mover()
 
 
-class ScrewFactory(AbstractMover):
+class ScrewFactory(AbstractMoverFactory):
     """
     Завод винтов
     """
-
     def create_mover(self):
-        return 'Создан винт'
+        return ScrewMover().mover()
 
 
-class ReactiveMoverFactory(AbstractMover):
+class ReactiveMoverFactory(AbstractMoverFactory):
     """
     Завод реактивных сопл
     """
-
     def create_mover(self):
-        return 'Сощдано реактивное сопло'
+        return ReactiveMover().mover()
 
 
-class MoverFactory(AbstractMover):
+class MoverFactory(AbstractMoverFactory):
 
     def __init__(self, mover):
         self.mover = mover
@@ -105,120 +145,131 @@ class MoverFactory(AbstractMover):
 
 # =====> Топливо <=====
 class AbstractFuel:
-    def create_fuel(self):
+    def fuel(self):
         raise NotImplementedError
 
 
 class PetrolFuel(AbstractFuel):
-    """
-    Завод по производству бензина
-    """
-
-    def create_fuel(self):
-        return 'Создано бензиновое топливо'
+    def fuel(self):
+        return 'Бензин'
 
 
 class DieselFuel(AbstractFuel):
-    """
-     Завод по производству дизеля
-    """
-
-    def create_fuel(self):
-        return 'Создано дизельное топливо'
+    def fuel(self):
+        return 'Дизель'
 
 
 class BatteryFuel(AbstractFuel):
-    """
-    Завод по производству аккумуляторов
-    """
-
-    def create_fuel(self):
-        return 'Создан аккумулятор'
+    def fuel(self):
+        return 'Батарея'
 
 
 class HydrogenFuel(AbstractFuel):
-    """
-    Завод по производству водорода
-    """
-
-    def create_fuel(self):
-        return 'Создано водородное топливо'
+    def fuel(self):
+        return 'Водород'
 
 
 class UranusFuel(AbstractFuel):
-    """
-    Завод по производству урана
-    """
-
-    def create_fuel(self):
-        return 'Создано урановое топливо'
+    def fuel(self):
+        return 'Уран'
 
 
 class AntimatterFuel(AbstractFuel):
+    def fuel(self):
+        return 'Антиматерия'
+
+
+# =====> Топливные заводы <=====
+class AbstractFuelFactory:
+    def create_fuel(self):
+        raise NotImplementedError
+
+
+class PetrolFuelFactory(AbstractFuelFactory):
+    """
+    Завод по производству бензина
+    """
+    def create_fuel(self):
+        return PetrolFuel().fuel()
+
+
+class DieselFuelFactory(AbstractFuelFactory):
+    """
+     Завод по производству дизеля
+    """
+    def create_fuel(self):
+        return DieselFuel().fuel()
+
+
+class BatteryFuelFactory(AbstractFuelFactory):
+    """
+    Завод по производству аккумуляторов
+    """
+    def create_fuel(self):
+        return BatteryFuel().fuel()
+
+
+class HydrogenFuelFactory(AbstractFuelFactory):
+    """
+    Завод по производству водорода
+    """
+    def create_fuel(self):
+        return HydrogenFuel().fuel()
+
+
+class UranusFuelFactory(AbstractFuelFactory):
+    """
+    Завод по производству урана
+    """
+    def create_fuel(self):
+        return UranusFuel().fuel()
+
+
+class AntimatterFuelFactory(AbstractFuelFactory):
     """
     Завод по производству антиматерии
     """
-
     def create_fuel(self):
-        return 'Создана антиматерия'
+        return AntimatterFuel().fuel()
 
 
-class FuelFactory(AbstractFuel):
+class FuelFactory(AbstractFuelFactory):
 
     def __init__(self, fuel):
         self.fuel = fuel
 
     def create_fuel(self):
         if self.fuel == 'Бензин':
-            return PetrolFuel().create_fuel()
+            return PetrolFuelFactory().create_fuel()
         elif self.fuel == 'Дизель':
-            return DieselFuel().create_fuel()
+            return DieselFuelFactory().create_fuel()
         elif self.fuel == 'Электричество':
-            return BatteryFuel().create_fuel()
+            return BatteryFuelFactory().create_fuel()
         elif self.fuel == 'Водород':
-            return HydrogenFuel().create_fuel()
+            return HydrogenFuelFactory().create_fuel()
         elif self.fuel == 'Уран':
-            return UranusFuel().create_fuel()
+            return UranusFuelFactory().create_fuel()
         elif self.fuel == 'Антиматерия':
-            return AntimatterFuel().create_fuel()
+            return AntimatterFuelFactory().create_fuel()
 
 
 # =====> Завод <=====
 class Factory:
-    def __init__(
+
+    def create(
             self, type_transport, engine, count_engine, mover,
             count_mover, fuel, fuel_consumption, transport_speed
     ):
-        self.type_transport = type_transport
-        self.engine = engine
-        self.count_engine = count_engine
-        self.mover = mover
-        self.count_mover = count_mover
-        self.fuel = fuel
-        self.fuel_consumption = fuel_consumption
-        self.transport_speed = transport_speed
+        for count in range(count_engine):
+            print(EngineFactory(engine).create_engine())
 
-    def create_engine(self):
-        for number in range(self.count_engine):
-            number = EngineFactory(self.engine).create_engine()
-            print(number)
+        for count in range(count_mover):
+            print(MoverFactory(mover).create_mover())
 
-    def create_mover(self):
-        for number in range(self.count_mover):
-            number = MoverFactory(self.mover).create_mover()
-            print(number)
-
-    def create_fuel(self):
-        return FuelFactory(self.fuel).create_fuel()
-
-    def specifications(self):
-        print(f'Создан {self.type_transport} транспорт')
-        print(f'Расход топлива: {self.fuel_consumption} единиц на 1 ед. расстояния')
-        print(f'Скорость: {self.transport_speed} ед/ч')
+        print(FuelFactory(fuel).create_fuel())
+        print(f'Создан {type_transport} транспорт')
+        print(f'Расход топлива: {fuel_consumption} единиц на 1 ед. расстояния')
+        print(f'Скорость: {transport_speed} ед/ч')
 
 
-transport_1 = Factory('Наземный', 'Поршневой', 4, 'Колесо', 3, 'Бензин', 20, 200)
-transport_1.create_engine()
-transport_1.create_mover()
-print(transport_1.create_fuel())
-transport_1.specifications()
+transport_1 = Factory().create('Наземный', 'Поршневой', 2, 'Колесо', 1, 'Бензин', 20, 200)
