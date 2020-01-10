@@ -283,23 +283,37 @@ class Factory:
     #     print(f'Создан {type_transport} транспорт')
     #     print(f'Расход топлива: {fuel_consumption} единиц на 1 ед. расстояния')
     #     print(f'Скорость: {transport_speed} ед/ч')
-    
+
+    # def create(
+    #         self, type_transport, engine, count_engine, mover,
+    #         count_mover, fuel, fuel_consumption, transport_speed
+    # ):
+    #     transport_list = [type_transport]
+    #
+    #     for count in range(count_engine):
+    #         transport_list.append(EngineFactory(engine).create_engine())
+    #
+    #     for count in range(count_mover):
+    #         transport_list.append(MoverFactory(mover).create_mover())
+    #
+    #     transport_list.append(FuelFactory(fuel).create_fuel())
+    #     transport_list.append(fuel_consumption)
+    #     transport_list.append(transport_speed)
+    #     return transport_list
+
     def create(
             self, type_transport, engine, count_engine, mover,
             count_mover, fuel, fuel_consumption, transport_speed
     ):
-        transport_list = [type_transport]
-
         for count in range(count_engine):
-            transport_list.append(EngineFactory(engine).create_engine())
+            EngineFactory(engine).create_engine()
 
         for count in range(count_mover):
-            transport_list.append(MoverFactory(mover).create_mover())
+            MoverFactory(mover).create_mover()
 
-        transport_list.append(FuelFactory(fuel).create_fuel())
-        transport_list.append(fuel_consumption)
-        transport_list.append(transport_speed)
-        return transport_list
+        FuelFactory(fuel).create_fuel()
+        return f'Создан {type_transport} транспорт. Скорость: ' \
+               f'{transport_speed} ед/ч. Расход {fuel_consumption} ед. на 1 ед расстояния.'
 
 
 # =====> test Factory <=====
