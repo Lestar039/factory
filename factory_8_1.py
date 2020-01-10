@@ -29,6 +29,7 @@ class PistonFactory(AbstractEngineFactory):
     """
     Завод поршневых двигателей
     """
+
     def create_engine(self):
         return PistonEngine().engine()
 
@@ -37,6 +38,7 @@ class RotorFactory(AbstractEngineFactory):
     """
     Завод роторных двигателей
     """
+
     def create_engine(self):
         return RotorEngine().engine()
 
@@ -45,6 +47,7 @@ class ReactiveFactory(AbstractEngineFactory):
     """
     Завод реактивных двигателей
     """
+
     def create_engine(self):
         return ReactiveEngine().engine()
 
@@ -99,6 +102,7 @@ class WheelsFactory(AbstractMoverFactory):
     """
     Завод колес
     """
+
     def create_mover(self):
         return WheelsMover().mover()
 
@@ -107,6 +111,7 @@ class TrackFactory(AbstractMoverFactory):
     """
     Завод гусениц
     """
+
     def create_mover(self):
         return TrackMover().mover()
 
@@ -115,6 +120,7 @@ class ScrewFactory(AbstractMoverFactory):
     """
     Завод винтов
     """
+
     def create_mover(self):
         return ScrewMover().mover()
 
@@ -123,6 +129,7 @@ class ReactiveMoverFactory(AbstractMoverFactory):
     """
     Завод реактивных сопл
     """
+
     def create_mover(self):
         return ReactiveMover().mover()
 
@@ -189,6 +196,7 @@ class PetrolFuelFactory(AbstractFuelFactory):
     """
     Завод по производству бензина
     """
+
     def create_fuel(self):
         return PetrolFuel().fuel()
 
@@ -197,6 +205,7 @@ class DieselFuelFactory(AbstractFuelFactory):
     """
      Завод по производству дизеля
     """
+
     def create_fuel(self):
         return DieselFuel().fuel()
 
@@ -205,6 +214,7 @@ class BatteryFuelFactory(AbstractFuelFactory):
     """
     Завод по производству аккумуляторов
     """
+
     def create_fuel(self):
         return BatteryFuel().fuel()
 
@@ -213,6 +223,7 @@ class HydrogenFuelFactory(AbstractFuelFactory):
     """
     Завод по производству водорода
     """
+
     def create_fuel(self):
         return HydrogenFuel().fuel()
 
@@ -221,6 +232,7 @@ class UranusFuelFactory(AbstractFuelFactory):
     """
     Завод по производству урана
     """
+
     def create_fuel(self):
         return UranusFuel().fuel()
 
@@ -229,6 +241,7 @@ class AntimatterFuelFactory(AbstractFuelFactory):
     """
     Завод по производству антиматерии
     """
+
     def create_fuel(self):
         return AntimatterFuel().fuel()
 
@@ -256,20 +269,104 @@ class FuelFactory(AbstractFuelFactory):
 # =====> Завод <=====
 class Factory:
 
+    # def create(
+    #         self, type_transport, engine, count_engine, mover,
+    #         count_mover, fuel, fuel_consumption, transport_speed
+    # ):
+    #     for count in range(count_engine):
+    #         print(EngineFactory(engine).create_engine())
+    #
+    #     for count in range(count_mover):
+    #         print(MoverFactory(mover).create_mover())
+    #
+    #     print(FuelFactory(fuel).create_fuel())
+    #     print(f'Создан {type_transport} транспорт')
+    #     print(f'Расход топлива: {fuel_consumption} единиц на 1 ед. расстояния')
+    #     print(f'Скорость: {transport_speed} ед/ч')
+    
     def create(
             self, type_transport, engine, count_engine, mover,
             count_mover, fuel, fuel_consumption, transport_speed
     ):
+        transport_list = [type_transport]
+
         for count in range(count_engine):
-            print(EngineFactory(engine).create_engine())
+            transport_list.append(EngineFactory(engine).create_engine())
 
         for count in range(count_mover):
-            print(MoverFactory(mover).create_mover())
+            transport_list.append(MoverFactory(mover).create_mover())
 
-        print(FuelFactory(fuel).create_fuel())
-        print(f'Создан {type_transport} транспорт')
-        print(f'Расход топлива: {fuel_consumption} единиц на 1 ед. расстояния')
-        print(f'Скорость: {transport_speed} ед/ч')
+        transport_list.append(FuelFactory(fuel).create_fuel())
+        transport_list.append(fuel_consumption)
+        transport_list.append(transport_speed)
+        return transport_list
 
 
-transport_1 = Factory().create('Наземный', 'Поршневой', 2, 'Колесо', 1, 'Бензин', 20, 200)
+# =====> test Factory <=====
+# transport_1 = Factory().create('Наземный', 'Поршневой', 2, 'Колесо', 2, 'Бензин', 20, 200)
+transport_1 = Factory()
+print(transport_1.create('Наземный', 'Поршневой', 2, 'Колесо', 2, 'Бензин', 20, 200))
+print('============================================')
+
+
+class Fuel:
+    """
+    Заправляем ТС топливом
+    """
+
+    def add_fuel(self, count):
+        return f'Транспорт заправлен на {count} ед. топлива'
+
+
+# =====> test Fuel <=====
+fuel_1 = Fuel()
+print(fuel_1.add_fuel(400))
+print('============================================')
+
+
+class TextDescriptionMove:
+    """
+    Текстовое описание маршрута
+    """
+
+    def move(self, movement):
+        # разбиваем маршрут на направление и количество единиц(градусов)
+        direction_of_travel = movement.split(' ')[0]
+        traffic = movement.split(' ')[1]
+
+        if direction_of_travel == 'forward':
+            print(f'Транспорт продвинулся вперед на {traffic} ед.')
+        elif direction_of_travel == 'back':
+            print(f'Транспорт продвинулся назад на {traffic} ед.')
+        elif direction_of_travel == 'left':
+            print(f'Транспорт повернул налево на {traffic} градусов')
+        elif direction_of_travel == 'right':
+            print(f'Транспорт повернул направо на {traffic} градусов')
+
+
+# =====> test TextDescriptionMove <=====
+mover_1 = TextDescriptionMove()
+mover_1.move('forward 43')
+mover_1.move('left 70')
+mover_1.move('back 80')
+mover_1.move('right 15')
+print('============================================')
+
+
+class Driver:
+    """
+    Класс пилота
+    """
+
+    def __init__(self, name):
+        self.name = name
+        print('Создан пилот', self.name)
+
+    def moving(self, movement):
+        return TextDescriptionMove().move(movement)
+
+
+# =====> test Driver  <=====
+driver_1 = Driver('Shumaher')
+driver_1.moving('forward 78')
+print('============================================')
