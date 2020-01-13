@@ -293,12 +293,40 @@ class FuelFactory(AbstractFuelFactory):
 
 
 # ===> ТС <=====
+class AbstractTransport:
+    def move(self):
+        raise NotImplementedError
+
+
+class GroundTransport(AbstractTransport):
+    def move(self):
+        return 'Едет'
+
+
+class WaterTransport(AbstractTransport):
+    def move(self):
+        return 'Плывет'
+
+
+class AirTransport(AbstractTransport):
+    def move(self):
+        return 'Летит'
+
+
 class Transport:
 
     def __init__(self, engine, mover, fuel):
         self.engine = engine
         self.mover = mover
         self.fuel = fuel
+
+    def move(self, type_transport):
+        if type_transport == 'Наземное':
+            return GroundTransport().move()
+        elif type_transport == 'Водное':
+            return WaterTransport().move()
+        elif type_transport == 'Воздушное':
+            return AirTransport().move()
 
 
 # =====> Завод <=====
@@ -326,9 +354,11 @@ class Factory:
 
 
 # =====> test Factory <=====
+print('=========== Создание транспорта =============')
 transport_1 = Factory().create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999)
-print(transport_1)
-print('=============================================')
+# print(transport_1)
+print()
+# print(transport_1.move('Воздушное'))
 
 
 class Fuel:
@@ -341,37 +371,48 @@ class Fuel:
 
 
 # =====> test Fuel <=====
+print('=========== Заправка транспорта =============')
 fuel_1 = Fuel()
 print(fuel_1.add_fuel(transport_1, 400))
-print('=============================================')
+print()
 
 
 class TextDescriptionMove:
     """
     Текстовое описание маршрута
     """
+    def __init__(self, type_transport):
+        self.type_transport = type_transport
 
-    def move(self, movement):
+    def movement(self, movement):
         # разбиваем маршрут на направление и количество единиц(градусов)
         direction_of_travel = movement.split(' ')[0]
         traffic = movement.split(' ')[1]
 
+        # название движения транспорта в отчете в зависимости от типа
+        if self.type_transport == 'Наземное':
+            type_name = 'проехал'
+        elif self.type_transport == 'Водное':
+            type_name = 'проплыл'
+        else:
+            type_name = 'пролетел'
+
         if direction_of_travel == 'forward':
-            print(f'Транспорт продвинулся вперед на {traffic} ед.')
+            return f'Транспорт {type_name} вперед на {traffic} ед.'
         elif direction_of_travel == 'back':
-            print(f'Транспорт продвинулся назад на {traffic} ед.')
+            return f'Транспорт {type_name} назад на {traffic} ед.'
         elif direction_of_travel == 'left':
-            print(f'Транспорт повернул налево на {traffic} градусов')
+            return f'Транспорт повернул налево на {traffic} градусов.'
         elif direction_of_travel == 'right':
-            print(f'Транспорт повернул направо на {traffic} градусов')
+            return f'Транспорт повернул направо на {traffic} градусов.'
 
 
 # =====> test TextDescriptionMove <=====
-# mover_1 = TextDescriptionMove()
-# mover_1.move('forward 43')
-# mover_1.move('left 70')
-# mover_1.move('back 80')
-# mover_1.move('right 15')
+# mover_1 = TextDescriptionMove(transport_1.move('Воздушное'))
+# print(mover_1.movement('forward 43'))
+# print(mover_1.movement('left 70'))
+# print(mover_1.movement('back 80'))
+# print(mover_1.movement('right 15'))
 # print('=============================================')
 
 
@@ -380,14 +421,22 @@ class Driver:
     Класс пилота
     """
 
-    def __init__(self, name):
+    def __init__(self, name, type_transport):
         self.name = name
-        print('Создан пилот', self.name)
+        self.type_transport = type_transport
+        print('Создан пилот:', self.name)
 
-    def moving(self, movement):
-        return TextDescriptionMove().move(movement)
+    def moving(self, move):
+        return TextDescriptionMove(self.type_transport).movement(move)
+
+    def start(self):
+        pass
+
 
 # =====> test Driver  <=====
-# driver_1 = Driver('Shumaher')
-# driver_1.moving('forward 78')
-# print('=============================================')
+print('============= Создание пилота ===============')
+driver_1 = Driver('Shumaher', 'Воздушное')
+print(driver_1.moving('forward 78'))
+driver_1.moving('back 20')
+driver_1.moving('left 45')
+print()
