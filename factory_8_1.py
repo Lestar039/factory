@@ -292,6 +292,17 @@ class FuelFactory(AbstractFuelFactory):
             return AntimatterFuelFactory().create_fuel()
 
 
+# ===> ТС <=====
+class Transport:
+    def __init__(self, type_transport, engines, movers, fuel, fuel_consumption, transport_speed):
+        self.engines = engines
+        self.movers = movers
+        self.fuel = fuel
+        self.fuel_consumption = fuel_consumption
+        self.transport_speed = transport_speed
+        print(f'Создан: {type_transport}, скорость: {transport_speed}, расход топлива: {fuel_consumption}')
+
+
 # =====> Завод <=====
 class Factory:
 
@@ -299,24 +310,25 @@ class Factory:
             self, type_transport, engine, count_engine, mover,
             count_mover, fuel, fuel_consumption, transport_speed
     ):
+        engine_list = []
         for one_engine in range(count_engine):
-            EngineFactory(engine).create_engine()
+            engine_list.append(EngineFactory(engine).create_engine())
 
+        mover_list = []
         for one_mover in range(count_mover):
-            MoverFactory(mover).create_mover()
+            mover_list.append(MoverFactory(mover).create_mover())
 
-        FuelFactory(fuel).create_fuel()
+        new_fuel = FuelFactory(fuel).create_fuel()
+        new_transport = Transport(type_transport, engine_list, mover_list, new_fuel,
+                                  fuel_consumption, transport_speed)
 
-        print(f'Создан: {type_transport}, скорость: {transport_speed}, расход топлива: {fuel_consumption}')
-
-        return type_transport
+        return new_transport
 
 
 # =====> test Factory <=====
-# transport_1 = Factory().create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999)
-transport_1 = Factory()
-print(type(transport_1.create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999)))
-print(transport_1.create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999))
+transport_1 = Factory().create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999)
+# transport_1 = Factory()
+# print(transport_1.create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999))
 print('============================================')
 
 
