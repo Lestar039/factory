@@ -273,7 +273,7 @@ class AntimatterFuelFactory(AbstractFuelFactory):
 
 
 class FuelFactory(AbstractFuelFactory):
-
+    
     def __init__(self, fuel):
         self.fuel = fuel
 
@@ -292,7 +292,7 @@ class FuelFactory(AbstractFuelFactory):
             return AntimatterFuelFactory().create_fuel()
 
 
-# ===> ТС <=====
+# ====> ТС <=====
 class AbstractTransport:
     def move(self):
         raise NotImplementedError
@@ -314,6 +314,9 @@ class AirTransport(AbstractTransport):
 
 
 class Transport:
+    """
+    Транспортное средство
+    """
 
     def __init__(self, name, type_transport, engine, mover, fuel):
         self.name = name
@@ -331,8 +334,10 @@ class Transport:
             return AirTransport().move()
 
 
-# =====> Завод <=====
 class Factory:
+    """
+    Завод по сборке транспортных средств
+    """
 
     def create(
             self, name, type_transport, engine, count_engine, mover,
@@ -383,6 +388,7 @@ class TextDescriptionMove:
     """
     Текстовое описание маршрута
     """
+
     def __init__(self, transport):
         self.transport = transport
 
