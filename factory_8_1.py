@@ -174,42 +174,42 @@ class PetrolFuel(AbstractFuel):
     __name = 'Бензин'
 
     def burn(self):
-        return 'Бензин сгорает'
+        return 'Расходуется бензин'
 
 
 class DieselFuel(AbstractFuel):
     __name = 'Дизель'
 
     def burn(self):
-        return 'Дизель сгорает'
+        return 'Расходуется дизель'
 
 
 class BatteryFuel(AbstractFuel):
     __name = 'Батарея'
 
     def burn(self):
-        return 'Батарея разряжается'
+        return 'Расходуется батарея'
 
 
 class HydrogenFuel(AbstractFuel):
     __name = 'Водород'
 
     def burn(self):
-        return 'Водород сгорает'
+        return 'Расходуется водород'
 
 
 class UraniumFuel(AbstractFuel):
     __name = 'Уран'
 
     def burn(self):
-        return 'Уран распадается'
+        return 'Расходуется уран'
 
 
 class AntimatterFuel(AbstractFuel):
     __name = 'Антиматерия'
 
     def burn(self):
-        return 'Антиматерия тратится'
+        return 'Расходуется антиматерия'
 
 
 # =====> Топливные заводы <=====
@@ -295,50 +295,30 @@ class FuelFactory(AbstractFuelFactory):
 # =====> Завод <=====
 class Factory:
 
-    # def create(
-    #         self, type_transport, engine, count_engine, mover,
-    #         count_mover, fuel, fuel_consumption, transport_speed
-    # ):
-    #     for count in range(count_engine):
-    #         EngineFactory(engine).create_engine()
-    #
-    #     for count in range(count_mover):
-    #         MoverFactory(mover).create_mover()
-    #
-    #     FuelFactory(fuel).create_fuel()
-    #     print(f'Создано транспортное средство:  {type_transport}')
-    #     print(f'Двигатель: {engine} - {count_engine} шт.')
-    #     print(f'Движитель: {mover} - {count_mover} шт.')
-    #     print(f'Расход топлива: {fuel_consumption} единиц на 1 ед. расстояния')
-    #     print(f'Скорость: {transport_speed} ед/ч')
-
     def create(
             self, type_transport, engine, count_engine, mover,
             count_mover, fuel, fuel_consumption, transport_speed
     ):
-        transport_list = [type_transport]
+        engine_list = []
+        for one_engine in range(count_engine):
+            engine_list.append(EngineFactory(engine).create_engine())
 
-        for count in range(count_engine):
-            transport_list.append(EngineFactory(engine).create_engine())
+        mover_list = []
+        for one_mover in range(count_mover):
+            mover_list.append(MoverFactory(mover).create_mover())
 
-        for count in range(count_mover):
-            transport_list.append(MoverFactory(mover).create_mover())
+        new_fuel = FuelFactory(fuel).create_fuel()
 
-        transport_list.append(FuelFactory(fuel).create_fuel())
-        transport_list.append(fuel_consumption)
-        transport_list.append(transport_speed)
-        print(f'Создано транспортное средство: {type_transport}')
-        print(f'Двигатель: {engine} - {count_engine} шт.')
-        print(f'Движитель: {mover} - {count_mover} шт.')
-        print(f'Расход топлива: {fuel_consumption} единиц на 1 ед. расстояния')
-        print(f'Скорость: {transport_speed} ед/ч')
-        return transport_list
+        print(f'Создан: {type_transport}, скорость: {transport_speed}, расход топлива: {fuel_consumption}')
+
+        return engine_list, mover_list, new_fuel
 
 
 # =====> test Factory <=====
-Factory().create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999)
+transport_1 = Factory().create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999)
 # transport_1 = Factory()
-# print(transport_1.create('Мотоцикл', 'Поршневой', 2, 'Колесо', 2, 'Бензин', 20, 200))
+# print(type(transport_1.create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999)))
+# print(transport_1.create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999))
 print('============================================')
 
 
