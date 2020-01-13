@@ -294,13 +294,11 @@ class FuelFactory(AbstractFuelFactory):
 
 # ===> ТС <=====
 class Transport:
-    def __init__(self, type_transport, engines, movers, fuel, fuel_consumption, transport_speed):
-        self.engines = engines
-        self.movers = movers
+
+    def __init__(self, engine, mover, fuel):
+        self.engine = engine
+        self.mover = mover
         self.fuel = fuel
-        self.fuel_consumption = fuel_consumption
-        self.transport_speed = transport_speed
-        print(f'Создан: {type_transport}, скорость: {transport_speed}, расход топлива: {fuel_consumption}')
 
 
 # =====> Завод <=====
@@ -319,17 +317,18 @@ class Factory:
             mover_list.append(MoverFactory(mover).create_mover())
 
         new_fuel = FuelFactory(fuel).create_fuel()
-        new_transport = Transport(type_transport, engine_list, mover_list, new_fuel,
-                                  fuel_consumption, transport_speed)
+
+        new_transport = Transport(engine_list, mover_list, new_fuel)
+
+        print(f'Создан: {type_transport}, скорость: {transport_speed}, расход топлива: {fuel_consumption}')
 
         return new_transport
 
 
 # =====> test Factory <=====
-transport_1 = Factory().create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999)
-# transport_1 = Factory()
-# print(transport_1.create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999))
-print('============================================')
+transport_1 = Factory().create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999)
+print(transport_1)
+print('=============================================')
 
 
 class Fuel:
@@ -337,14 +336,14 @@ class Fuel:
     Заправляем ТС топливом
     """
 
-    def add_fuel(self, count):
-        return f'Транспорт заправлен на {count} ед. топлива'
+    def add_fuel(self, transport, count):
+        return f'{transport} заправлен на {count} ед. топлива'
 
 
 # =====> test Fuel <=====
-# fuel_1 = Fuel()
-# print(fuel_1.add_fuel(400))
-# print('============================================')
+fuel_1 = Fuel()
+print(fuel_1.add_fuel(transport_1, 400))
+print('=============================================')
 
 
 class TextDescriptionMove:
@@ -373,7 +372,7 @@ class TextDescriptionMove:
 # mover_1.move('left 70')
 # mover_1.move('back 80')
 # mover_1.move('right 15')
-# print('============================================')
+# print('=============================================')
 
 
 class Driver:
@@ -391,4 +390,4 @@ class Driver:
 # =====> test Driver  <=====
 # driver_1 = Driver('Shumaher')
 # driver_1.moving('forward 78')
-# print('============================================')
+# print('=============================================')
