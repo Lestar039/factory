@@ -299,26 +299,24 @@ class Factory:
             self, type_transport, engine, count_engine, mover,
             count_mover, fuel, fuel_consumption, transport_speed
     ):
-        engine_list = []
         for one_engine in range(count_engine):
-            engine_list.append(EngineFactory(engine).create_engine())
+            EngineFactory(engine).create_engine()
 
-        mover_list = []
         for one_mover in range(count_mover):
-            mover_list.append(MoverFactory(mover).create_mover())
+            MoverFactory(mover).create_mover()
 
-        new_fuel = FuelFactory(fuel).create_fuel()
+        FuelFactory(fuel).create_fuel()
 
         print(f'Создан: {type_transport}, скорость: {transport_speed}, расход топлива: {fuel_consumption}')
 
-        return engine_list, mover_list, new_fuel
+        return type_transport
 
 
 # =====> test Factory <=====
-transport_1 = Factory().create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999)
-# transport_1 = Factory()
-# print(type(transport_1.create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999)))
-# print(transport_1.create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999))
+# transport_1 = Factory().create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999)
+transport_1 = Factory()
+print(type(transport_1.create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999)))
+print(transport_1.create('НЛО', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 999999))
 print('============================================')
 
 
