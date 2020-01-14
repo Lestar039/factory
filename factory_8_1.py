@@ -392,7 +392,7 @@ class TransportFactory(AbstractTransportFactory):
 
 
 # =====> test TransportFactory <=====
-# tr_1 = TransportFactory('Катер', 'Водное', 'Пошневой', 'Винт', 'Дизель')
+# tr_1 = TransportFactory('Катер', 'Водное', 'Пошневой', 'Винт', 'Дизель', 2, 80)
 # print(tr_1.create_transport())
 # print()
 
@@ -435,55 +435,63 @@ class Fuel:
     Заправляем ТС топливом
     """
 
-    def add_fuel(self, transport, fueling):
+    def add_fuel(self, transport, type_fuel, fueling):
+        # new_fuel = FuelFactory(type_fuel).create_fuel()
         name = transport.name
-        print(f'{name} заправлен топливом на {fueling} ед.')
+        print(f'{name} заправлен топливом: {type_fuel} - {fueling} ед.')
         return fueling
 
 
 # =====> test Fuel <=====
 print('=========== Заправка транспорта =============')
 fuel_1 = Fuel()
-print(fuel_1.add_fuel(transport_1, 400))
+fuel_1.add_fuel(transport_1, 'Антиматерия', 400)
 print()
 
 
-class SpendFuel:
-    """
-    Расход топлива
-    """
-
-    def spend_fuel(self, transport, count_fuel):
-        spend_per_sec = count_fuel - transport.fuel_consumption
-        yield spend_per_sec
+# class SpendFuel:
+#     """
+#     Расход топлива
+#     """
+#
+#     count = 0
+#
+#     def spend_fuel(self, transport, count_fuel):
+#         SpendFuel.count = count_fuel
+#         spend_per_sec = count_fuel - transport.fuel_consumption
+#         if spend_per_sec > 0:
+#             print(f'Потрачено {transport.fuel_consumption} ед. топлива')
+#             return transport.fuel_consumption
+#         else:
+#             print('Закончилось топливо')
 
 
 # =====> test SpendFuel < =====
 # spend = SpendFuel()
-# print(spend.spend_fuel(transport_1, fuel_1))
+# spend.spend_fuel(transport_1, fuel_1)
 
 
-class TextDescriptionMove:
-    """
-    Текстовое описание маршрута
-    """
-
-    def __init__(self, transport):
-        self.transport = transport
-
-    def movement_transport(self, movement):
-        # разбиваем маршрут на направление и количество единиц(градусов)
-        direction_of_travel = movement.split(' ')[0]
-        traffic = movement.split(' ')[1]
-
-        if direction_of_travel == 'forward':
-            return f'{self.transport.name} {self.transport.move()} вперед на {traffic} ед.'
-        elif direction_of_travel == 'back':
-            return f'{self.transport.name} {self.transport.move()} назад на {traffic} ед.'
-        elif direction_of_travel == 'left':
-            return f'{self.transport.name} повернул налево на {traffic} градусов.'
-        elif direction_of_travel == 'right':
-            return f'{self.transport.name} повернул направо на {traffic} градусов.'
+# class TextDescriptionMove:
+#     """
+#     Текстовое описание маршрута
+#     """
+#
+#     def __init__(self, transport):
+#         self.transport = transport
+#
+#     def movement_transport(self, movement):
+#         # разбиваем маршрут на направление и количество единиц(градусов)
+#         direction_of_travel = movement.split(' ')[0]
+#         traffic = movement.split(' ')[1]
+#
+#         if direction_of_travel == 'forward':
+#             return f'{self.transport.name} {self.transport.move()} вперед на {traffic} ед.'
+#         elif direction_of_travel == 'back':
+#             return f'{self.transport.name} {self.transport.move()} назад на {traffic} ед.'
+#         elif direction_of_travel == 'left':
+#             return f'{self.transport.name} повернул налево на {traffic} градусов.'
+#         elif direction_of_travel == 'right':
+#             return f'{self.transport.name} повернул направо на {traffic} градусов.'
 
 
 # =====> test TextDescriptionMove <=====
@@ -496,22 +504,21 @@ class TextDescriptionMove:
 # print()
 
 
-class Driver:
-    """
-    Класс пилота
-    """
-
-    def __init__(self, name, transport):
-        self.name = name
-        self.transport = transport
-        print('Создан пилот:', self.name)
-
-    def moving(self, move):
-        return TextDescriptionMove(self.transport).movement_transport(move)
-
-    def start(self):
-        pass
-
+# class Driver:
+#     """
+#     Класс пилота
+#     """
+#
+#     def __init__(self, name, transport):
+#         self.name = name
+#         self.transport = transport
+#         print('Создан пилот:', self.name)
+#
+#     def moving(self, move):
+#         return TextDescriptionMove(self.transport).movement_transport(move)
+#
+#     def start(self):
+#         pass
 
 # =====> test Driver  <=====
 # print('============= Создание пилота ===============')
