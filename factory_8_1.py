@@ -562,26 +562,68 @@ print('=========== Заправка транспорта =============')
 fuel_1 = FuelingStation(transport_1, 400)
 print(fuel_1.fueling())
 
-# class SpendFuel:
-#     """
-#     Расход топлива
-#     """
-#
-#     count = 0
-#
-#     def spend_fuel(self, transport, count_fuel):
-#         SpendFuel.count = count_fuel
-#         spend_per_sec = count_fuel - transport.fuel_consumption
-#         if spend_per_sec > 0:
-#             print(f'Потрачено {transport.fuel_consumption} ед. топлива')
-#             return transport.fuel_consumption
-#         else:
-#             print('Закончилось топливо')
+
+# =====> Создание водителя <=====
+class AbstractPerson:
+    def create_person(self):
+        raise NotImplementedError('Мы тут - AbstractPerson')
 
 
-# =====> test SpendFuel < =====
-# spend = SpendFuel()
-# spend.spend_fuel(transport_1, fuel_1)
+class Person(AbstractPerson):
+    def create_person(self):
+        return 'Создан человек'
+
+
+# =====> Создание типа водителя  <=====
+class AbstractDriver:
+    def create_driver(self):
+        raise NotImplementedError('Мы тут - AbstractDrive')
+
+
+class Driver(AbstractDriver):
+    __name = 'Водитель'
+
+    def create_driver(self):
+        return Person()
+
+
+class Pilot(AbstractDriver):
+    __name = 'Пилот'
+
+    def create_driver(self):
+        return Person()
+
+
+class Captain(AbstractDriver):
+    __name = 'Капитан'
+
+    def create_driver(self):
+        return Person()
+
+
+class CreateDriver(AbstractDriver):
+
+    def __init__(self, transport, type_driver, name):
+        self.transport = transport
+        self.type_driver = type_driver
+        self.name = name
+
+    def create_driver(self):
+        if self.type_driver == 'Водитель':
+            print(f'Создан водитель {self.name}')
+            return Driver().create_driver()
+        elif self.type_driver == 'Пилот':
+            print(f'Создан пилот {self.name}')
+            return Pilot().create_driver()
+        elif self.type_driver == 'Капитан':
+            print(f'Создан катитан {self.name}')
+            return Captain().create_driver()
+
+
+# =====> test CreateDriver <=====
+print('=========== Создание водителя =============')
+driver_1 = CreateDriver(transport_1, 'Пилот', 'Dart Weider').create_driver()
+# print(driver_1.create_driver())
 
 
 # class TextDescriptionMove:
@@ -616,27 +658,3 @@ print(fuel_1.fueling())
 # print(mover_1.movement_transport('right 15'))
 # print()
 
-
-# class Driver:
-#     """
-#     Класс пилота
-#     """
-#
-#     def __init__(self, name, transport):
-#         self.name = name
-#         self.transport = transport
-#         print('Создан пилот:', self.name)
-#
-#     def moving(self, move):
-#         return TextDescriptionMove(self.transport).movement_transport(move)
-#
-#     def start(self):
-#         pass
-
-# =====> test Driver  <=====
-# print('============= Создание пилота ===============')
-# driver_1 = Driver('Shumaher', transport_1)
-# print(driver_1.moving('forward 78'))
-# driver_1.moving('back 20')
-# driver_1.moving('left 45')
-# print()

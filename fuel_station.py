@@ -1,4 +1,5 @@
 from factory import Factory
+from fuel import AntimatterFuel
 
 
 # =====> Заправленное топливо <=====
@@ -105,8 +106,10 @@ class FuelStation(AbstractFuelingStation):
             return HydrogenFuelingStation().add_fuel()
         elif self.type_fuel == 'Уран':
             return UraniumFuelingStation().add_fuel()
-        elif self.type_fuel == 'Антиматерия':
+        elif self.type_fuel == AntimatterFuel():
             return AbstractFuelingStation().add_fuel()
+        else:
+            return 'А вот и не угадал! Ты тут - FuelStation().add_fuel()'
 
 
 # =====> test <=====
