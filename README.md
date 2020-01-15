@@ -1,7 +1,5 @@
 # factory
 
-factory_8_1.py - Все в одном файле
-
 engine.py - Создание двигателей
 
 mover.py - Создание движителей
@@ -13,3 +11,6 @@ transport_type.py - Создание типов ТС
 factory.py - Производит ТС из деталей
 
 fuel_station.py - Заправка ТС топливом
+
+
+factory_8_1.py - Все в одном файле
