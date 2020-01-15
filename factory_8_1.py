@@ -295,12 +295,12 @@ class FuelFactory(AbstractFuelFactory):
 # ====> Тип танспортного средства <=====
 class AbstractTransport:
 
-    def __init__(self, name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed):
+    def __init__(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):
         self.name = name
         self.type_transport = type_transport
         self.engine = engine
         self.mover = mover
-        self.fuel = fuel
+        self.fuel_type = fuel_type
         self.fuel_consumption = fuel_consumption
         self.transport_speed = transport_speed
 
@@ -331,12 +331,12 @@ class AirTransport(AbstractTransport):
 
 class AbstractTransportFactory:
 
-    def __init__(self, name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed):
+    def __init__(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):
         self.name = name
         self.type_transport = type_transport
         self.engine = engine
         self.mover = mover
-        self.fuel = fuel
+        self.fuel_type = fuel_type
         self.fuel_consumption = fuel_consumption
         self.transport_speed = transport_speed
 
@@ -351,7 +351,7 @@ class GroundTransportFactory(AbstractTransportFactory):
 
     def create_transport(self):
         return GroundTransport(self.name, self.type_transport, self.engine, self.mover,
-                               self.fuel, self.fuel_consumption, self.transport_speed)
+                               self.fuel_type, self.fuel_consumption, self.transport_speed)
 
 
 class WaterTransportFactory(AbstractTransportFactory):
@@ -361,7 +361,7 @@ class WaterTransportFactory(AbstractTransportFactory):
 
     def create_transport(self):
         return WaterTransport(self.name, self.type_transport, self.engine, self.mover,
-                              self.fuel, self.fuel_consumption, self.transport_speed)
+                              self.fuel_type, self.fuel_consumption, self.transport_speed)
 
 
 class AirTransportFactory(AbstractTransportFactory):
@@ -371,7 +371,7 @@ class AirTransportFactory(AbstractTransportFactory):
 
     def create_transport(self):
         return AirTransport(self.name, self.type_transport, self.engine, self.mover,
-                            self.fuel, self.fuel_consumption, self.transport_speed)
+                            self.fuel_type, self.fuel_consumption, self.transport_speed)
 
 
 class TransportFactory(AbstractTransportFactory):
@@ -381,14 +381,14 @@ class TransportFactory(AbstractTransportFactory):
 
     def create_transport(self):
         if self.type_transport == 'Наземное':
-            return GroundTransportFactory(self.name, self.type_transport, self.engine, self.mover,
-                                          self.fuel, self.fuel_consumption, self.transport_speed).create_transport()
+            return GroundTransportFactory(self.name, self.type_transport, self.engine, self.mover, self.fuel_type,
+                                          self.fuel_consumption, self.transport_speed).create_transport()
         elif self.type_transport == 'Водное':
-            return WaterTransportFactory(self.name, self.type_transport, self.engine, self.mover,
-                                         self.fuel, self.fuel_consumption, self.transport_speed).create_transport()
+            return WaterTransportFactory(self.name, self.type_transport, self.engine, self.mover, self.fuel_type,
+                                         self.fuel_consumption, self.transport_speed).create_transport()
         elif self.type_transport == 'Воздушное':
-            return AirTransportFactory(self.name, self.type_transport, self.engine, self.mover,
-                                       self.fuel, self.fuel_consumption, self.transport_speed).create_transport()
+            return AirTransportFactory(self.name, self.type_transport, self.engine, self.mover, self.fuel_type,
+                                       self.fuel_consumption, self.transport_speed).create_transport()
 
 
 # =====> test TransportFactory <=====
@@ -404,7 +404,7 @@ class Factory:
 
     def create(
             self, name, type_transport, engine, count_engine, mover,
-            count_mover, fuel, fuel_consumption, transport_speed
+            count_mover, fuel_type, fuel_consumption, transport_speed
     ):
         engine_list = []
         for one_engine in range(count_engine):
@@ -414,9 +414,9 @@ class Factory:
         for one_mover in range(count_mover):
             mover_list.append(MoverFactory(mover).create_mover())
 
-        new_fuel = FuelFactory(fuel).create_fuel()
+        new_fuel_type = FuelFactory(fuel_type).create_fuel()
 
-        new_transport = TransportFactory(name, type_transport, engine_list, mover_list, new_fuel,
+        new_transport = TransportFactory(name, type_transport, engine_list, mover_list, new_fuel_type,
                                          fuel_consumption, transport_speed).create_transport()
 
         print(f'Создано ТС: {name}')
@@ -430,24 +430,102 @@ transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивн
 print()
 
 
-class Fuel:
+# =====> Заправка ТС топливом <=====
+class AbstractFuelingStation:
+    def add_fuel(self):
+        raise NotImplementedError
+
+
+class PetrolFuelingStation(AbstractFuelingStation):
+    def add_fuel(self):
+        petrol_fuel = PetrolFuelFactory().create_fuel()
+        print('Транспорт заправлен бензином')
+        return petrol_fuel
+
+
+class DieselFuelingStation(AbstractFuelingStation):
+    def add_fuel(self):
+        diesel_fuel = DieselFuelFactory().create_fuel()
+        print('Транспорт заправлен дизелем')
+        return diesel_fuel
+
+
+class ElectricFuelingStation(AbstractFuelingStation):
+    def add_fuel(self):
+        electric_fuel = BatteryFuelFactory().create_fuel()
+        print('Батареи транспорта заряжены')
+        return electric_fuel
+
+
+class HydrogenFuelingStation(AbstractFuelingStation):
+    def add_fuel(self):
+        hydrogen_fuel = HydrogenFuelFactory().create_fuel()
+        print('Транспорт заправлен водородом')
+        return hydrogen_fuel
+
+
+class UraniumFuelingStation(AbstractFuelingStation):
+    def add_fuel(self):
+        uranium_fuel = UranusFuelFactory().create_fuel()
+        print('Транспорт заправлен ураном')
+        return uranium_fuel
+
+
+class AntimatterFuelingStation(AbstractFuelingStation):
+    def add_fuel(self):
+        antimatter_fuel = AntimatterFuelFactory().create_fuel()
+        print('Транспорт заправлен антиматерией')
+        return antimatter_fuel
+
+
+class Station:
+
+    def __init__(self, type_fuel):
+        self.type_fuel = type_fuel
+
+    def type_station(self):
+        if self.type_fuel == 'Бензин':
+            return PetrolFuelingStation().add_fuel()
+        elif self.type_fuel == 'Дизель':
+            return DieselFuelingStation().add_fuel()
+        elif self.type_fuel == 'Электричество':
+            return ElectricFuelingStation().add_fuel()
+        elif self.type_fuel == 'Водород':
+            return HydrogenFuelingStation().add_fuel()
+        elif self.type_fuel == 'Уран':
+            return UraniumFuelingStation().add_fuel()
+        elif self.type_fuel == 'Антиматерия':
+            return AbstractFuelingStation().add_fuel()
+
+
+# =====> test Fuel Station <=====
+# station_1 = Station('Бензин')
+# print(station_1.type_station())
+
+
+class FuelingStation:
     """
     Заправляем ТС топливом
     """
 
-    def add_fuel(self, transport, type_fuel, fueling):
-        # new_fuel = FuelFactory(type_fuel).create_fuel()
-        name = transport.name
-        print(f'{name} заправлен топливом: {type_fuel} - {fueling} ед.')
-        return fueling
+    def __init__(self, transport, fuel_type, count_fuel):
+        self.transport = transport
+        self.fuel_type = fuel_type
+        self.count_fuel = count_fuel
+
+    def fueling(self):
+        new_fuel = Station(self.fuel_type).type_station()
+        print(f'{self.transport.name} заправлен топливом: {self.fuel_type} - {self.count_fuel} ед.')
+        return new_fuel
 
 
 # =====> test Fuel <=====
-print('=========== Заправка транспорта =============')
-fuel_1 = Fuel()
-fuel_1.add_fuel(transport_1, 'Антиматерия', 400)
-print()
-
+# print('=========== Заправка транспорта =============')
+# fuel_1 = FuelingStation(transport_1, 'Антиматерия', 400).fueling()
+# print(fuel_1.fueling())
+# fuel_1.fueling()
+# print()
+# print(fuel_1.fueling())
 
 # class SpendFuel:
 #     """
