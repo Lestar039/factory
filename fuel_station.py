@@ -129,7 +129,7 @@ class FuelingStation:
         return new_fuel
 
 
-# # =====> test Fuel <=====
+# # =====> test FuelingStation <=====
 print('=========== Создание транспорта =============')
 transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
 
