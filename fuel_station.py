@@ -1,5 +1,4 @@
 from factory import Factory
-from fuel import AntimatterFuel
 
 
 # =====> Заправленное топливо <=====
@@ -106,36 +105,36 @@ class FuelStation(AbstractFuelingStation):
             return HydrogenFuelingStation().add_fuel()
         elif self.type_fuel == 'Уран':
             return UraniumFuelingStation().add_fuel()
-        elif self.type_fuel == AntimatterFuel():
-            return AbstractFuelingStation().add_fuel()
+        elif self.type_fuel == 'Антиматерия':
+            return AntimatterFuelingStation().add_fuel()
         else:
-            return 'А вот и не угадал! Ты тут - FuelStation().add_fuel()'
+            return 'Такой заправки не существует'
 
 
 # =====> test <=====
-# station_1 = FuelStation('Бензин').add_fuel()
+# station_1 = FuelStation('Антиматерия').add_fuel()
 # print(station_1.refueling_fuel())
 
 
-class FuelingStation:
+class FuelingTransport:
     """
     Заправочная станция
     """
 
-    def __init__(self, transport, count_fuel):
+    def __init__(self, transport, type_fuel, count_fuel):
         self.transport = transport
+        self.type_fuel = type_fuel
         self.count_fuel = count_fuel
 
     def fueling(self):
-        new_fuel = FuelStation(self.transport.fuel_type).add_fuel()
-        print(f'{self.transport.name} заправлен топливом: {self.transport.fuel_type} - {self.count_fuel} ед.')
+        new_fuel = FuelStation(self.type_fuel).add_fuel()
+        print(f'{self.transport.name} заправлен топливом: {self.type_fuel} - {self.count_fuel} ед.')
         return new_fuel
 
 
 # # =====> test FuelingStation <=====
-print('=========== Создание транспорта =============')
-transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
-
-print('=========== Заправка транспорта =============')
-fuel_1 = FuelingStation(transport_1, 400)
-print(fuel_1.fueling())
+# print('=========== Создание транспорта =============')
+# transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
+#
+# print('=========== Заправка транспорта =============')
+# fuel_1 = FuelingTransport(transport_1, 'Антиматерия', 400).fueling()
