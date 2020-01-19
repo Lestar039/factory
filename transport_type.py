@@ -18,21 +18,21 @@ class GroundTransport(AbstractTransport):
     __name = 'Наземный транспорт'
 
     def move(self):
-        return 'Едет'
+        return 'едет'
 
 
 class WaterTransport(AbstractTransport):
     __name = 'Водный транспорт'
 
     def move(self):
-        return 'Плывет'
+        return 'плывет'
 
 
 class AirTransport(AbstractTransport):
     __name = 'Воздушный транспорт'
 
     def move(self):
-        return 'Летит'
+        return 'летит'
 
 
 class AbstractTransportFactory:

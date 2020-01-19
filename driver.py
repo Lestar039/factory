@@ -59,9 +59,8 @@ class CreateDriver(AbstractDriver):
 
 
 # =====> test CreateDriver <=====
-print('=========== Создание транспорта =============')
-transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
-
-print('=========== Создание водителя =============')
-driver_1 = CreateDriver(transport_1, 'Пилот', 'Dart Weider').create_driver()
-# print(driver_1.create_driver())
+# print('=========== Создание транспорта =============')
+# transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
+#
+# print('============ Создание водителя ==============')
+# driver_1 = CreateDriver(transport_1, 'Пилот', 'Dart Weider').create_driver()

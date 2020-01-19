@@ -121,14 +121,14 @@ class FuelingTransport:
     Заправочная станция
     """
 
-    def __init__(self, transport, type_fuel, count_fuel):
+    def __init__(self, transport, fuel_type, count_fuel):
         self.transport = transport
-        self.type_fuel = type_fuel
+        self.fuel_type = fuel_type
         self.count_fuel = count_fuel
 
     def fueling(self):
-        new_fuel = FuelStation(self.type_fuel).add_fuel()
-        print(f'{self.transport.name} заправлен топливом: {self.type_fuel} - {self.count_fuel} ед.')
+        new_fuel = FuelStation(self.fuel_type).add_fuel()
+        print(f'{self.transport.name} заправлен топливом: {self.fuel_type} - {self.count_fuel} ед.')
         return new_fuel
 
 

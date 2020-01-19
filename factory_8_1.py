@@ -626,7 +626,6 @@ class CreateDriver(AbstractDriver):
 # =====> test CreateDriver <=====
 print('=========== Создание водителя =============')
 driver_1 = CreateDriver(transport_1, 'Пилот', 'Dart Weider').create_driver()
-# print(driver_1.create_driver())
 
 
 # class TextDescriptionMove:
