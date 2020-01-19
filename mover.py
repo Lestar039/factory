@@ -3,6 +3,9 @@ class AbstractMover:
     def move(self):
         raise NotImplementedError
 
+    def __str__(self):
+        return self.move()
+
 
 class WheelsMover(AbstractMover):
     __name = 'Колесо'

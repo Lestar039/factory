@@ -3,6 +3,9 @@ class AbstractFuel:
     def burn(self):
         raise NotImplementedError
 
+    def __str__(self):
+        return self.burn()
+
 
 class PetrolFuel(AbstractFuel):
     __name = 'Бензин'

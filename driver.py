@@ -1,4 +1,7 @@
 from factory import Factory
+from move_description import TextDescriptionMove
+
+import time
 
 
 # =====> Создание водителя <=====
@@ -10,6 +13,10 @@ class AbstractPerson:
 class Person(AbstractPerson):
     def create_person(self):
         return 'Создан человек'
+
+    # def route(self, transport, movement):
+    #     # raise NotImplementedError('Мы тут - Person')
+    #     pass
 
 
 # =====> Создание типа водителя  <=====

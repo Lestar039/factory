@@ -100,12 +100,12 @@ class TextDescriptionMove:
 
 
 # # =====> test TextDescriptionMove <=====
-print('=========== Создание транспорта =============')
-transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
-
-print('=========== Движение транспорта =============')
-mover_1 = TextDescriptionMove(transport_1)
-print(mover_1.movement_transport('forward 43'))
-print(mover_1.movement_transport('back 80'))
-print(mover_1.movement_transport('left 70'))
-print(mover_1.movement_transport('right 15'))
+# print('=========== Создание транспорта =============')
+# transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
+#
+# print('=========== Движение транспорта =============')
+# mover_1 = TextDescriptionMove(transport_1)
+# print(mover_1.movement_transport('forward 43'))
+# print(mover_1.movement_transport('back 80'))
+# print(mover_1.movement_transport('left 70'))
+# print(mover_1.movement_transport('right 15'))
