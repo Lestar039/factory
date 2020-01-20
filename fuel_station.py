@@ -121,14 +121,13 @@ class FuelingTransport:
     Заправочная станция
     """
 
-    def __init__(self, transport, fuel_type, count_fuel):
+    def __init__(self, transport, count_fuel):
         self.transport = transport
-        self.fuel_type = fuel_type
         self.count_fuel = count_fuel
 
     def fueling(self):
-        print(f'{self.transport.name} заправлен топливом: {self.fuel_type} - {self.count_fuel} ед.')
-        return FuelStation(self.fuel_type).add_fuel()
+        print(f'{self.transport.name} заправлен топливом: {self.transport.fuel_type._name} - {self.count_fuel} ед.')
+        return FuelStation(self.transport.fuel_type._name).add_fuel()
 
 
 # # =====> test FuelingStation <=====
@@ -136,4 +135,5 @@ class FuelingTransport:
 # transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
 #
 # print('=========== Заправка транспорта =============')
-# fuel_1 = FuelingTransport(transport_1, 'Антиматерия', 400).fueling()
+# # fuel_1 = FuelingTransport(transport_1, 'Антиматерия', 400).fueling()
+# fuel_1 = FuelingTransport(transport_1, 400).fueling()

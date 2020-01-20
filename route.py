@@ -19,19 +19,18 @@ class Route:
 
         count_move = 1
         for move in transport.mover:
-            print(f'№{count_move} {move}')
+            print(f'{move._name} №{count_move}: пройдено ед.')
             count_move += 1
 
         count_engine = 1
         for move in transport.engine:
-            print(f'№{count_engine} {move}')
+            print(f'{move._name} №{count_engine}: пройдено ед.')
             count_engine += 1
 
-        print(f'{transport.fuel_type} ед.')
+        print(f'Израсходовано ед. {transport.fuel_type._name}')
 
         print('')
         time.sleep(1)
-        # return transport_movement
 
     def start(self):
         pass
@@ -47,6 +46,6 @@ print()
 print('========= Отчет водителя о маршруте =========')
 route_1 = Route(driver_1)
 route_1.route(transport_1, 'forward 43')
-route_1.route(transport_1, 'back 80')
+# route_1.route(transport_1, 'back 80')
 # route_1.route(transport_1, 'left 70')
 # route_1.route(transport_1, 'right 15')

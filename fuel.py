@@ -8,42 +8,42 @@ class AbstractFuel:
 
 
 class PetrolFuel(AbstractFuel):
-    __name = 'Бензин'
+    _name = 'Бензин'
 
     def burn(self):
         return 'Расходуется бензин'
 
 
 class DieselFuel(AbstractFuel):
-    __name = 'Дизель'
+    _name = 'Дизель'
 
     def burn(self):
         return 'Расходуется дизель'
 
 
 class BatteryFuel(AbstractFuel):
-    __name = 'Батарея'
+    _name = 'Батарея'
 
     def burn(self):
         return 'Расходуется батарея'
 
 
 class HydrogenFuel(AbstractFuel):
-    __name = 'Водород'
+    _name = 'Водород'
 
     def burn(self):
         return 'Расходуется водород'
 
 
 class UraniumFuel(AbstractFuel):
-    __name = 'Уран'
+    _name = 'Уран'
 
     def burn(self):
         return 'Расходуется уран'
 
 
 class AntimatterFuel(AbstractFuel):
-    __name = 'Антиматерия'
+    _name = 'Антиматерия'
 
     def burn(self):
         return 'Расходуется антиматерия'

@@ -8,28 +8,28 @@ class AbstractMover:
 
 
 class WheelsMover(AbstractMover):
-    __name = 'Колесо'
+    _name = 'Колесо'
 
     def move(self):
         return 'Колесо крутится'
 
 
 class TrackMover(AbstractMover):
-    __name = 'Гусеница'
+    _name = 'Гусеница'
 
     def move(self):
         return 'Гусеница крутится'
 
 
 class ScrewMover(AbstractMover):
-    __name = 'Винт'
+    _name = 'Винт'
 
     def move(self):
         return 'Винт крутится'
 
 
 class ReactiveMover(AbstractMover):
-    __name = 'Реактивное сопло'
+    _name = 'Реактивное сопло'
 
     def move(self):
         return 'Реактивное сопло работает'

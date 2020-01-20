@@ -8,21 +8,21 @@ class AbstractEngine:
 
 
 class PistonEngine(AbstractEngine):
-    __name = 'Поршневой двигатель'
+    _name = 'Поршневой двигатель'
 
     def work(self):
         return 'Поршневой двигатель работает'
 
 
 class RotorEngine(AbstractEngine):
-    __name = 'Роторный двигатель'
+    _name = 'Роторный двигатель'
 
     def work(self):
         return 'Роторный двигатель работает'
 
 
 class ReactiveEngine(AbstractEngine):
-    __name = 'Реактивный двигатель'
+    _name = 'Реактивный двигатель'
 
     def work(self):
         return 'Реактивный двигатель работает'
