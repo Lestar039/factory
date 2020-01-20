@@ -29,7 +29,7 @@ class Route:
 
         print(f'{transport.fuel_type} ед.')
 
-        print('----')
+        print('')
         time.sleep(1)
         # return transport_movement
 
@@ -40,12 +40,11 @@ class Route:
 # =====> Запуск программы <=====
 print('=========== Создание транспорта =============')
 transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
-
+print()
 print('============ Создание водителя ==============')
 driver_1 = CreateDriver(transport_1, 'Пилот', 'Dart Weider').create_driver()
-
-print('==== Передача маршрута движения водителю ====')
 print()
+print('========= Отчет водителя о маршруте =========')
 route_1 = Route(driver_1)
 route_1.route(transport_1, 'forward 43')
 route_1.route(transport_1, 'back 80')
