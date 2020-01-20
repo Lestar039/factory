@@ -50,12 +50,12 @@ class CreateDriver(AbstractDriver):
         if self.transport.type_transport == 'Наземное':
             print(f'Создан водитель: {self.name}')
             return Driver().create_driver()
-        elif self.transport.type_transport == 'Воздушное':
-            print(f'Создан пилот: {self.name}')
-            return Pilot().create_driver()
         elif self.transport.type_transport == 'Водное':
             print(f'Создан катитан: {self.name}')
             return Captain().create_driver()
+        elif self.transport.type_transport == 'Воздушное':
+            print(f'Создан пилот: {self.name}')
+            return Pilot().create_driver()
 
 
 # =====> test CreateDriver <=====

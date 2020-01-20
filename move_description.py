@@ -78,8 +78,8 @@ class DescriptionMove(AbstractCommand):
 
 
 # =====> test <=====
-# descr_1 = DescriptionMove('forward').command()
-# print(descr_1)
+# description_1 = DescriptionMove('forward').command()
+# print(description_1)
 
 
 class TextDescriptionMove:
