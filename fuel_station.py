@@ -135,5 +135,4 @@ class FuelingTransport:
 # transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
 #
 # print('=========== Заправка транспорта =============')
-# # fuel_1 = FuelingTransport(transport_1, 'Антиматерия', 400).fueling()
 # fuel_1 = FuelingTransport(transport_1, 400).fueling()
