@@ -1,8 +1,6 @@
 from factory import Factory
 from move_description import TextDescriptionMove
 
-import time
-
 
 # =====> Создание водителя <=====
 class AbstractPerson:
@@ -14,10 +12,6 @@ class Person(AbstractPerson):
     def create_person(self):
         return 'Создан человек'
 
-    # def route(self, transport, movement):
-    #     # raise NotImplementedError('Мы тут - Person')
-    #     pass
-
 
 # =====> Создание типа водителя  <=====
 class AbstractDriver:
@@ -26,21 +20,21 @@ class AbstractDriver:
 
 
 class Driver(AbstractDriver):
-    __name = 'Водитель'
+    _name = 'Водитель'
 
     def create_driver(self):
         return Person()
 
 
 class Pilot(AbstractDriver):
-    __name = 'Пилот'
+    _name = 'Пилот'
 
     def create_driver(self):
         return Person()
 
 
 class Captain(AbstractDriver):
-    __name = 'Капитан'
+    _name = 'Капитан'
 
     def create_driver(self):
         return Person()
@@ -48,20 +42,19 @@ class Captain(AbstractDriver):
 
 class CreateDriver(AbstractDriver):
 
-    def __init__(self, transport, type_driver, name):
+    def __init__(self, transport, name):
         self.transport = transport
-        self.type_driver = type_driver
         self.name = name
 
     def create_driver(self):
-        if self.type_driver == 'Водитель':
-            print(f'Создан водитель {self.name}')
+        if self.transport.type_transport == 'Наземное':
+            print(f'Создан водитель: {self.name}')
             return Driver().create_driver()
-        elif self.type_driver == 'Пилот':
-            print(f'Создан пилот {self.name}')
+        elif self.transport.type_transport == 'Воздушное':
+            print(f'Создан пилот: {self.name}')
             return Pilot().create_driver()
-        elif self.type_driver == 'Капитан':
-            print(f'Создан катитан {self.name}')
+        elif self.transport.type_transport == 'Водное':
+            print(f'Создан катитан: {self.name}')
             return Captain().create_driver()
 
 
@@ -70,4 +63,4 @@ class CreateDriver(AbstractDriver):
 # transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
 #
 # print('============ Создание водителя ==============')
-# driver_1 = CreateDriver(transport_1, 'Пилот', 'Dart Weider').create_driver()
+# driver_1 = CreateDriver(transport_1, 'Dart Weider').create_driver()

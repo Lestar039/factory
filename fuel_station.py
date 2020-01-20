@@ -126,8 +126,9 @@ class FuelingTransport:
         self.count_fuel = count_fuel
 
     def fueling(self):
+        FuelStation(self.transport.fuel_type._name).add_fuel()
         print(f'{self.transport.name} заправлен топливом: {self.transport.fuel_type._name} - {self.count_fuel} ед.')
-        return FuelStation(self.transport.fuel_type._name).add_fuel()
+        return self.count_fuel
 
 
 # # =====> test FuelingStation <=====
