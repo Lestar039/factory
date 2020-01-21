@@ -15,16 +15,16 @@ class Factory:
     ):
         engine_list = []
         for one_engine in range(count_engine):
-            engine_list.append(EngineFactory(engine).create_engine())
+            engine_list.append(EngineFactory().create_engine(engine))
 
         mover_list = []
         for one_mover in range(count_mover):
-            mover_list.append(MoverFactory(mover).create_mover())
+            mover_list.append(MoverFactory().create_mover(mover))
 
-        new_fuel_type = FuelFactory(fuel_type).create_fuel()
+        new_fuel_type = FuelFactory().create_fuel(fuel_type)
 
-        new_transport = TransportFactory(name, type_transport, engine_list, mover_list, new_fuel_type,
-                                         fuel_consumption, transport_speed).create_transport()
+        new_transport = TransportFactory().create_transport(
+            name, type_transport, engine_list, mover_list, new_fuel_type,fuel_consumption, transport_speed)
 
         print(f'Создано ТС: {name}')
 

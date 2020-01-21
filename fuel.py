@@ -1,10 +1,12 @@
 # =====> Топливо <=====
 class AbstractFuel:
+    _name = 'abstract_fuel'
+
     def burn(self):
         raise NotImplementedError
 
     def __str__(self):
-        return self.burn()
+        return self._name
 
 
 class PetrolFuel(AbstractFuel):
@@ -51,6 +53,8 @@ class AntimatterFuel(AbstractFuel):
 
 # =====> Топливные заводы <=====
 class AbstractFuelFactory:
+    count_fuel = 0
+
     def create_fuel(self):
         raise NotImplementedError
 
@@ -109,21 +113,23 @@ class AntimatterFuelFactory(AbstractFuelFactory):
         return AntimatterFuel()
 
 
-class FuelFactory(AbstractFuelFactory):
+class FuelFactory:
 
-    def __init__(self, fuel):
-        self.fuel = fuel
-
-    def create_fuel(self):
-        if self.fuel == 'Бензин':
+    def create_fuel(self, fuel):
+        if fuel == 'Бензин':
             return PetrolFuelFactory().create_fuel()
-        elif self.fuel == 'Дизель':
+        elif fuel == 'Дизель':
             return DieselFuelFactory().create_fuel()
-        elif self.fuel == 'Электричество':
+        elif fuel == 'Электричество':
             return BatteryFuelFactory().create_fuel()
-        elif self.fuel == 'Водород':
+        elif fuel == 'Водород':
             return HydrogenFuelFactory().create_fuel()
-        elif self.fuel == 'Уран':
+        elif fuel == 'Уран':
             return UranusFuelFactory().create_fuel()
-        elif self.fuel == 'Антиматерия':
+        elif fuel == 'Антиматерия':
             return AntimatterFuelFactory().create_fuel()
+
+
+# =====> test <=====
+fuel_1 = FuelFactory().create_fuel('Уран')
+print(fuel_1.count_fuel)

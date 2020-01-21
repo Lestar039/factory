@@ -1,10 +1,12 @@
 # =====> Движители <=====
 class AbstractMover:
+    _name = 'abstract_mover'
+
     def move(self):
         raise NotImplementedError
 
     def __str__(self):
-        return self.move()
+        return self._name
 
 
 class WheelsMover(AbstractMover):
@@ -77,17 +79,14 @@ class ReactiveMoverFactory(AbstractMoverFactory):
         return ReactiveMover()
 
 
-class MoverFactory(AbstractMoverFactory):
+class MoverFactory:
 
-    def __init__(self, mover):
-        self.mover = mover
-
-    def create_mover(self):
-        if self.mover == 'Колесо':
+    def create_mover(self, mover):
+        if mover == 'Колесо':
             return WheelsFactory().create_mover()
-        elif self.mover == 'Гусеница':
+        elif mover == 'Гусеница':
             return TrackFactory().create_mover()
-        elif self.mover == 'Винт':
+        elif mover == 'Винт':
             return ScrewFactory().create_mover()
-        elif self.mover == 'Реактивное сопло':
+        elif mover == 'Реактивное сопло':
             return ReactiveMoverFactory().create_mover()

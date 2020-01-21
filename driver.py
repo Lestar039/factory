@@ -3,44 +3,38 @@ from move_description import TextDescriptionMove
 
 
 # =====> Создание водителя <=====
-class AbstractPerson:
+class AbstractPersonFactory:
     def create_person(self):
         raise NotImplementedError('Мы тут - AbstractPerson')
 
 
-class Person(AbstractPerson):
+class Person(AbstractPersonFactory):
     def create_person(self):
         return 'Создан человек'
 
 
 # =====> Создание типа водителя  <=====
-class AbstractDriver:
+class AbstractDriverFactory:
     def create_driver(self):
         raise NotImplementedError('Мы тут - AbstractDrive')
 
 
-class Driver(AbstractDriver):
-    _name = 'Водитель'
-
+class Driver(AbstractDriverFactory):
     def create_driver(self):
         return Person()
 
 
-class Pilot(AbstractDriver):
-    _name = 'Пилот'
-
+class Pilot(AbstractDriverFactory):
     def create_driver(self):
         return Person()
 
 
-class Captain(AbstractDriver):
-    _name = 'Капитан'
-
+class Captain(AbstractDriverFactory):
     def create_driver(self):
         return Person()
 
 
-class CreateDriver(AbstractDriver):
+class CreateDriver:
 
     def __init__(self, transport, name):
         self.transport = transport
