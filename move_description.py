@@ -1,6 +1,3 @@
-from factory import Factory
-
-
 # =====> Направление движения <=====
 class AbstractMove:
     _name = 'абстрактное движение'
