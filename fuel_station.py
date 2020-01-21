@@ -3,7 +3,7 @@ from factory import Factory
 
 # =====> Виды заправочных станций <=====
 class AbstractFuelingStation:
-    _name = 'abstract_fueling_station'
+    _name = 'abstract fueling station'
 
     def add_fuel(self, transport, count_fuel):
         raise NotImplementedError('Мы тут - AbstractFuelingStation')
@@ -140,9 +140,9 @@ class RefuelingTransport:
     Заправляем транспорт
     """
 
-    def refueling(self, transport, count_fuel):
+    def refueling(self, station, transport, count_fuel):
         print(f'{transport.name} заправлен {count_fuel} ед. {transport.fuel_type}')
-        return FuelingStation().create_station(transport.fuel_type).add_fuel(transport, count_fuel)
+        return station.add_fuel(transport, count_fuel)
 
 
 # =====> test <=====
@@ -154,5 +154,5 @@ print('=========== Создание транспорта =============')
 transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
 print()
 print('=========== Заправка транспорта =============')
-refueling_1 = RefuelingTransport().refueling(transport_1, 300)
+refueling_1 = RefuelingTransport().refueling(station_1, transport_1, 300)
 # print(refueling_1)
