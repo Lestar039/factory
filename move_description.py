@@ -3,7 +3,7 @@ from factory import Factory
 
 # =====> Направление движения <=====
 class AbstractMove:
-    _name = 'abstract move'
+    _name = 'абстрактное движение'
 
     def movement(self):
         raise NotImplementedError('Мы тут - AbstractMove')
@@ -27,14 +27,14 @@ class BackMove(AbstractMove):
 
 
 class LeftMove(AbstractMove):
-    _name = 'налево'
+    _name = 'поворот налево'
 
     def movement(self):
         return 'поворот налево'
 
 
 class RightMove(AbstractMove):
-    _name = 'направо'
+    _name = 'поворот направо'
 
     def movement(self):
         return 'поворот направо'
@@ -42,6 +42,10 @@ class RightMove(AbstractMove):
 
 # =====> Команды создающие движение <=====
 class AbstractCommandFactory:
+    """
+    Абстрактная команда двигаться
+    """
+
     def command(self):
         return NotImplementedError('Мы тут - AbstractCommand')
 
@@ -83,7 +87,7 @@ class RightCommandFactory(AbstractCommandFactory):
 
 class DescriptionMove:
     """
-    Выбор движения
+    Конкретная команда двигаться
     """
 
     def command(self, movement):
@@ -99,35 +103,9 @@ class DescriptionMove:
             return 'ERROR: transport not moving'
 
 
-# =====> test <=====
-# description_1 = DescriptionMove().command('forward')
-# print(description_1)
-
-
-# class TextDescriptionMove:
-#     """
-#     Текстовое описание маршрута
-#     """
-#
-#     def __init__(self, transport):
-#         self.transport = transport
-#
-#     def movement_transport(self, movement):
-#         # разбиваем маршрут на направление и количество единиц(градусов)
-#         direction_of_travel = movement.split(' ')[0]
-#         traffic = movement.split(' ')[1]
-#
-#         return f'{self.transport.name} {self.transport.move()} ' \
-#                f'{DescriptionMove(direction_of_travel).command()} на {traffic} ед.'
-#
-
-# # =====> test TextDescriptionMove <=====
-# print('=========== Создание транспорта =============')
-# transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
-#
-# print('=========== Движение транспорта =============')
-# mover_1 = TextDescriptionMove(transport_1)
-# print(mover_1.movement_transport('forward 43'))
-# print(mover_1.movement_transport('back 80'))
-# print(mover_1.movement_transport('left 70'))
-# print(mover_1.movement_transport('right 15'))
+if __name__ == "__main__":
+    move_1 = DescriptionMove()
+    print(move_1.command('forward'))
+    print(move_1.command('back'))
+    print(move_1.command('left'))
+    print(move_1.command('right'))

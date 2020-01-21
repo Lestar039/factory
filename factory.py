@@ -1,6 +1,5 @@
 from engine import EngineFactory
 from mover import MoverFactory
-from fuel import FuelFactory
 from transport_type import TransportFactory
 
 
