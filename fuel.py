@@ -138,5 +138,5 @@ class FuelFactory:
             return AntimatterFuelFactory().create_fuel(count_fuel)
 
 
-# =====> test <=====
-# fuel_1 = FuelFactory().create_fuel('Уран', 400)
+if __name__ == "__main__":
+    fuel_1 = FuelFactory().create_fuel('Уран', 400)

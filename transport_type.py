@@ -93,5 +93,5 @@ class TransportFactory:
                 name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed)
 
 
-# =====> test TransportFactory <=====
-# tr_1 = TransportFactory().create_transport('Катер', 'Водное', 'Пошневой', 'Винт', 'Дизель', 2, 80)
+if __name__ == "__main__":
+    tr_1 = TransportFactory().create_transport('Катер', 'Водное', 'Пошневой', 'Винт', 'Дизель', 2, 80)

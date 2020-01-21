@@ -77,5 +77,5 @@ class EngineFactory:
             return ReactiveFactory().create_engine()
 
 
-# =====> test <=====
-# engine_1 = EngineFactory().create_engine('Роторный')
+if __name__ == "__main__":
+    engine_1 = EngineFactory().create_engine('Роторный')

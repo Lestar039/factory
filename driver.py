@@ -47,9 +47,9 @@ class CreateDriver:
             return Pilot().create_driver()
 
 
-# =====> test CreateDriver <=====
-# print('=========== Создание транспорта =============')
-# transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
-#
-# print('============ Создание водителя ==============')
-# driver_1 = CreateDriver().create_driver(transport_1, 'Dart Weider')
+if __name__ == "__main__":
+    print('=========== Создание транспорта =============')
+    transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
+
+    print('============ Создание водителя ==============')
+    driver_1 = CreateDriver().create_driver(transport_1, 'Dart Weider')

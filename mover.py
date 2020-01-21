@@ -96,5 +96,5 @@ class MoverFactory:
             return ReactiveMoverFactory().create_mover()
 
 
-# =====> test <=====
-# mover_1 = MoverFactory().create_mover('Винт')
+if __name__ == "__main__":
+    mover_1 = MoverFactory().create_mover('Винт')
