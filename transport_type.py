@@ -1,5 +1,6 @@
 # ====> Тип танспортного средства <=====
 class AbstractTransport:
+    _name = 'abstract_type_transport'
 
     def __init__(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):
         self.name = name
@@ -12,6 +13,9 @@ class AbstractTransport:
 
     def move(self):
         raise NotImplementedError
+
+    def __str__(self):
+        return self._name
 
 
 class GroundTransport(AbstractTransport):

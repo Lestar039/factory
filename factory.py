@@ -21,10 +21,8 @@ class Factory:
         for one_mover in range(count_mover):
             mover_list.append(MoverFactory().create_mover(mover))
 
-        new_fuel_type = FuelFactory().create_fuel(fuel_type)
-
         new_transport = TransportFactory().create_transport(
-            name, type_transport, engine_list, mover_list, new_fuel_type,fuel_consumption, transport_speed)
+            name, type_transport, engine_list, mover_list, fuel_type, fuel_consumption, transport_speed)
 
         print(f'Создано ТС: {name}')
 

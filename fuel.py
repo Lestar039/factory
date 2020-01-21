@@ -53,9 +53,8 @@ class AntimatterFuel(AbstractFuel):
 
 # =====> Топливные заводы <=====
 class AbstractFuelFactory:
-    count_fuel = 0
 
-    def create_fuel(self):
+    def create_fuel(self, count_fuel):
         raise NotImplementedError
 
 
@@ -64,7 +63,7 @@ class PetrolFuelFactory(AbstractFuelFactory):
     Завод по производству бензина
     """
 
-    def create_fuel(self):
+    def create_fuel(self, count_fuel):
         return PetrolFuel()
 
 
@@ -73,7 +72,7 @@ class DieselFuelFactory(AbstractFuelFactory):
      Завод по производству дизеля
     """
 
-    def create_fuel(self):
+    def create_fuel(self, count_fuel):
         return DieselFuel()
 
 
@@ -82,7 +81,7 @@ class BatteryFuelFactory(AbstractFuelFactory):
     Завод по производству аккумуляторов
     """
 
-    def create_fuel(self):
+    def create_fuel(self, count_fuel):
         return BatteryFuel()
 
 
@@ -91,7 +90,7 @@ class HydrogenFuelFactory(AbstractFuelFactory):
     Завод по производству водорода
     """
 
-    def create_fuel(self):
+    def create_fuel(self, count_fuel):
         return HydrogenFuel()
 
 
@@ -100,7 +99,7 @@ class UranusFuelFactory(AbstractFuelFactory):
     Завод по производству урана
     """
 
-    def create_fuel(self):
+    def create_fuel(self, count_fuel):
         return UraniumFuel()
 
 
@@ -109,27 +108,30 @@ class AntimatterFuelFactory(AbstractFuelFactory):
     Завод по производству антиматерии
     """
 
-    def create_fuel(self):
+    def create_fuel(self, count_fuel):
         return AntimatterFuel()
 
 
 class FuelFactory:
+    """
+    Создает count_fuel ед. топлива
+    """
 
-    def create_fuel(self, fuel):
+    def create_fuel(self, fuel, count_fuel):
         if fuel == 'Бензин':
-            return PetrolFuelFactory().create_fuel()
+            return PetrolFuelFactory().create_fuel(count_fuel)
         elif fuel == 'Дизель':
-            return DieselFuelFactory().create_fuel()
+            return DieselFuelFactory().create_fuel(count_fuel)
         elif fuel == 'Электричество':
-            return BatteryFuelFactory().create_fuel()
+            return BatteryFuelFactory().create_fuel(count_fuel)
         elif fuel == 'Водород':
-            return HydrogenFuelFactory().create_fuel()
+            return HydrogenFuelFactory().create_fuel(count_fuel)
         elif fuel == 'Уран':
-            return UranusFuelFactory().create_fuel()
+            return UranusFuelFactory().create_fuel(count_fuel)
         elif fuel == 'Антиматерия':
-            return AntimatterFuelFactory().create_fuel()
+            return AntimatterFuelFactory().create_fuel(count_fuel)
 
 
 # =====> test <=====
-fuel_1 = FuelFactory().create_fuel('Уран')
-print(fuel_1.count_fuel)
+fuel_1 = FuelFactory().create_fuel('Уран', 400)
+print(fuel_1)
