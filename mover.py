@@ -1,6 +1,6 @@
 # =====> Движители <=====
 class AbstractMover:
-    _name = 'abstract mover'
+    _name = 'абстрактный движетель'
 
     def move(self):
         raise NotImplementedError
@@ -39,6 +39,10 @@ class ReactiveMover(AbstractMover):
 
 # =====> Заводы движителей <=====
 class AbstractMoverFactory:
+    """
+    Абстрактный завод движетелей
+    """
+
     def create_mover(self):
         raise NotImplementedError
 
@@ -80,6 +84,9 @@ class ReactiveMoverFactory(AbstractMoverFactory):
 
 
 class MoverFactory:
+    """
+    Конкретный завод движетелей
+    """
 
     def create_mover(self, mover):
         if mover == 'Колесо':

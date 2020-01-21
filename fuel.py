@@ -1,6 +1,6 @@
 # =====> Топливо <=====
 class AbstractFuel:
-    _name = 'abstract fuel'
+    _name = 'абстрактное топливо'
 
     def burn(self):
         raise NotImplementedError
@@ -53,6 +53,9 @@ class AntimatterFuel(AbstractFuel):
 
 # =====> Топливные заводы <=====
 class AbstractFuelFactory:
+    """
+    Абстрактный топливный завод
+    """
 
     def create_fuel(self, count_fuel):
         raise NotImplementedError
@@ -114,7 +117,7 @@ class AntimatterFuelFactory(AbstractFuelFactory):
 
 class FuelFactory:
     """
-    Создает count_fuel ед. топлива
+    Конкретный топливный завод
     """
 
     def create_fuel(self, fuel, count_fuel):

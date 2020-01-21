@@ -1,6 +1,6 @@
 # ====> Тип танспортного средства <=====
 class AbstractTransport:
-    _name = 'abstract_type_transport'
+    _name = 'абстрактный тип ТС'
 
     def __init__(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):
         self.name = name
@@ -41,6 +41,9 @@ class AirTransport(AbstractTransport):
 
 # =====> Типы заводов транспорта <=====
 class AbstractTransportFactory:
+    """
+    Абстрактный завод ТС
+    """
 
     def create_transport(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):
         raise NotImplementedError
@@ -75,7 +78,7 @@ class AirTransportFactory(AbstractTransportFactory):
 
 class TransportFactory:
     """
-    Завод различных типов ТС
+    Конкретный завод ТС
     """
 
     def create_transport(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):

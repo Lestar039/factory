@@ -3,37 +3,64 @@ from factory import Factory
 
 # =====> Создание водителя <=====
 class AbstractPersonFactory:
+    """
+    Создание абстрактного человека
+    """
+
     def create_person(self):
         raise NotImplementedError('Мы тут - AbstractPerson')
 
 
 class Person(AbstractPersonFactory):
+    """
+    Создание конкретного человека
+    """
+
     def create_person(self):
         return 'Создан человек'
 
 
 # =====> Создание типа водителя  <=====
 class AbstractDriverFactory:
+    """
+    Создание абстрактного водителя
+    """
+
     def create_driver(self):
         raise NotImplementedError('Мы тут - AbstractDrive')
 
 
 class Driver(AbstractDriverFactory):
+    """
+    Создание водителя
+    """
+
     def create_driver(self):
         return Person()
 
 
 class Pilot(AbstractDriverFactory):
+    """
+    Создание пилота
+    """
+
     def create_driver(self):
         return Person()
 
 
 class Captain(AbstractDriverFactory):
+    """
+    Создание капитана
+    """
+
     def create_driver(self):
         return Person()
 
 
 class CreateDriver:
+    """
+    Создание конкретного водителя
+    """
 
     def create_driver(self, transport, name):
         if transport.type_transport == 'Наземное':

@@ -3,7 +3,7 @@ from factory import Factory
 
 # =====> Виды заправочных станций <=====
 class AbstractFuelingStation:
-    _name = 'abstract fueling station'
+    _name = 'абстрактная заправочная станция'
 
     def add_fuel(self, transport, count_fuel):
         raise NotImplementedError('Мы тут - AbstractFuelingStation')
@@ -56,6 +56,10 @@ class AntimatterFuelingStation(AbstractFuelingStation):
 
 # =====> Заводы заправочных станций <=====
 class AbstractStationFactory:
+    """
+    Абстрактный завод заправочных станций
+    """
+
     def create_station(self):
         raise NotImplementedError('Мы тут - AbstractStationFactory')
 
@@ -116,6 +120,9 @@ class AntimatterStationFactory(AbstractStationFactory):
 
 # =====> Создание заправочной станции <=====
 class FuelingStation:
+    """
+    Конкретный завод заправочных станций
+    """
 
     def create_station(self, fueling_type):
         if fueling_type == 'Бензин':
