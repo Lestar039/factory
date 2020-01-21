@@ -1,6 +1,6 @@
 # =====> Двигатели <=====
 class AbstractEngine:
-    _name = 'abstract_engine'
+    _name = 'abstract engine'
 
     def work(self):
         raise NotImplementedError
@@ -67,13 +67,15 @@ class EngineFactory:
 
     def create_engine(self, engine):
         if engine == 'Поршневой':
+            print(f'Создан {engine} двигатель')
             return PistonFactory().create_engine()
         elif engine == 'Роторный':
+            print(f'Создан {engine} двигатель')
             return RotorFactory().create_engine()
         elif engine == 'Реактивный':
+            print(f'Создан {engine} двигатель')
             return ReactiveFactory().create_engine()
 
 
 # =====> test <=====
 # engine_1 = EngineFactory().create_engine('Роторный')
-# print(engine_1)

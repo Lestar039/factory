@@ -48,8 +48,8 @@ class CreateDriver:
 
 
 # =====> test CreateDriver <=====
-print('=========== Создание транспорта =============')
-transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
-
-print('============ Создание водителя ==============')
-driver_1 = CreateDriver().create_driver(transport_1, 'Dart Weider')
+# print('=========== Создание транспорта =============')
+# transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
+#
+# print('============ Создание водителя ==============')
+# driver_1 = CreateDriver().create_driver(transport_1, 'Dart Weider')

@@ -80,16 +80,18 @@ class TransportFactory:
 
     def create_transport(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):
         if type_transport == 'Наземное':
+            print(f'Создано {type_transport} транспортное средство')
             return GroundTransportFactory().create_transport(
                 name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed)
         elif type_transport == 'Водное':
+            print(f'Создано {type_transport} транспортное средство')
             return WaterTransportFactory().create_transport(
                 name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed)
         elif type_transport == 'Воздушное':
+            print(f'Создано {type_transport} транспортное средство')
             return AirTransportFactory().create_transport(
                 name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed)
 
 
 # =====> test TransportFactory <=====
 # tr_1 = TransportFactory().create_transport('Катер', 'Водное', 'Пошневой', 'Винт', 'Дизель', 2, 80)
-# print(tr_1)
