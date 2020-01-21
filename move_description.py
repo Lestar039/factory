@@ -2,102 +2,124 @@ from factory import Factory
 
 
 # =====> Направление движения <=====
-class AbastractMove:
+class AbstractMove:
+    _name = 'abstract move'
+
     def movement(self):
-        raise NotImplementedError('Мы тут - AbastractMove')
+        raise NotImplementedError('Мы тут - AbstractMove')
 
     def __str__(self):
-        return self.movement()
+        return self._name
 
 
-class ForwardMove(AbastractMove):
+class ForwardMove(AbstractMove):
+    _name = 'вперед'
+
     def movement(self):
-        return 'вперед'
+        return ' движение вперед'
 
 
-class BackMove(AbastractMove):
+class BackMove(AbstractMove):
+    _name = 'назад'
+
     def movement(self):
-        return 'назад'
+        return 'движение назад'
 
 
-class LeftMove(AbastractMove):
+class LeftMove(AbstractMove):
+    _name = 'налево'
+
     def movement(self):
-        return 'налево'
+        return 'поворот налево'
 
 
-class RightMove(AbastractMove):
+class RightMove(AbstractMove):
+    _name = 'направо'
+
     def movement(self):
-        return 'направо'
+        return 'поворот направо'
 
 
-# =====> Команды для движения <=====
-class AbstractCommand:
+# =====> Команды создающие движение <=====
+class AbstractCommandFactory:
     def command(self):
         return NotImplementedError('Мы тут - AbstractCommand')
 
 
-class ForwardCommand(AbstractCommand):
+class ForwardCommandFactory(AbstractCommandFactory):
+    """
+    Команда двигаться вперед
+    """
+
     def command(self):
         return ForwardMove()
 
 
-class BackCommand(AbstractCommand):
+class BackCommandFactory(AbstractCommandFactory):
+    """
+    Команда двигаться назад
+    """
     def command(self):
         return BackMove()
 
 
-class LeftCommand(AbstractCommand):
+class LeftCommandFactory(AbstractCommandFactory):
+    """
+    Команда поворачивать налево
+    """
+
     def command(self):
         return LeftMove()
 
 
-class RightCommand(AbstractCommand):
+class RightCommandFactory(AbstractCommandFactory):
+    """
+    Команда поворачивать направо
+    """
+
     def command(self):
         return RightMove()
 
 
-class DescriptionMove(AbstractCommand):
+class DescriptionMove:
     """
     Выбор движения
     """
 
-    def __init__(self, movement):
-        self.movement = movement
-
-    def command(self):
-        if self.movement == 'forward':
-            return ForwardCommand().command()
-        elif self.movement == 'back':
-            return BackCommand().command()
-        elif self.movement == 'left':
-            return LeftCommand().command()
-        elif self.movement == 'right':
-            return RightCommand().command()
+    def command(self, movement):
+        if movement == 'forward':
+            return ForwardCommandFactory().command()
+        elif movement == 'back':
+            return BackCommandFactory().command()
+        elif movement == 'left':
+            return LeftCommandFactory().command()
+        elif movement == 'right':
+            return RightCommandFactory().command()
         else:
-            return 'Не двигается'
+            return 'ERROR: transport not moving'
 
 
 # =====> test <=====
-# description_1 = DescriptionMove('forward').command()
+# description_1 = DescriptionMove().command('forward')
 # print(description_1)
 
 
-class TextDescriptionMove:
-    """
-    Текстовое описание маршрута
-    """
-
-    def __init__(self, transport):
-        self.transport = transport
-
-    def movement_transport(self, movement):
-        # разбиваем маршрут на направление и количество единиц(градусов)
-        direction_of_travel = movement.split(' ')[0]
-        traffic = movement.split(' ')[1]
-
-        return f'{self.transport.name} {self.transport.move()} ' \
-               f'{DescriptionMove(direction_of_travel).command()} на {traffic} ед.'
-
+# class TextDescriptionMove:
+#     """
+#     Текстовое описание маршрута
+#     """
+#
+#     def __init__(self, transport):
+#         self.transport = transport
+#
+#     def movement_transport(self, movement):
+#         # разбиваем маршрут на направление и количество единиц(градусов)
+#         direction_of_travel = movement.split(' ')[0]
+#         traffic = movement.split(' ')[1]
+#
+#         return f'{self.transport.name} {self.transport.move()} ' \
+#                f'{DescriptionMove(direction_of_travel).command()} на {traffic} ед.'
+#
 
 # # =====> test TextDescriptionMove <=====
 # print('=========== Создание транспорта =============')
