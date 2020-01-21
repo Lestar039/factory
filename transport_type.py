@@ -39,6 +39,7 @@ class AirTransport(AbstractTransport):
         return 'летит'
 
 
+# =====> Типы заводов транспорта <=====
 class AbstractTransportFactory:
 
     def create_transport(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):

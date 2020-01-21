@@ -3,133 +3,152 @@ from factory import Factory
 
 # =====> Виды заправочных станций <=====
 class AbstractFuelingStation:
+    _name = 'abstract_fueling_station'
 
-    def __init__(self, transport, count_fuel):
-        self.transport = transport
-        self.count_fuel = count_fuel
-
-    def add_fuel(self):
+    def add_fuel(self, transport, count_fuel):
         raise NotImplementedError('Мы тут - AbstractFuelingStation')
 
     def __str__(self):
-        return self.add_fuel()
+        return self._name
 
 
 class PetrolFuelingStation(AbstractFuelingStation):
     _name = 'Станция для заправки бензина'
 
-    def add_fuel(self):
+    def add_fuel(self, transport, count_fuel):
         return 'Заправляем бензин'
 
 
 class DieselFuelingStation(AbstractFuelingStation):
     _name = 'Станция для заправки дизеля'
 
-    def add_fuel(self):
+    def add_fuel(self, transport, count_fuel):
         return 'Заправляем дизель'
 
 
 class ElectricFuelingStation(AbstractFuelingStation):
     _name = 'Станция для зарядки батарей'
 
-    def add_fuel(self):
+    def add_fuel(self, transport, count_fuel):
         return 'Заряжаем батареи'
 
 
 class HydrogenFuelingStation(AbstractFuelingStation):
     _name = 'Станция для заправки водорода'
 
-    def add_fuel(self):
+    def add_fuel(self, transport, count_fuel):
         return 'Заправляем водород'
 
 
 class UraniumFuelingStation(AbstractFuelingStation):
     _name = 'Станция для заправки урана'
 
-    def add_fuel(self):
+    def add_fuel(self, transport, count_fuel):
         return 'Заправляем уран'
 
 
 class AntimatterFuelingStation(AbstractFuelingStation):
     _name = 'Станция для заправки антиматерии'
 
-    def add_fuel(self):
+    def add_fuel(self, transport, count_fuel):
         return 'Заправляем антиматерию'
 
 
-# =====> Заправленный транспорт <=====
-class AbstractRefuelingTransport:
-
-    def __init__(self, transport, count_fuel):
-        self.transport = transport
-        self.count_fuel = count_fuel
-
-    def refuel(self):
-        raise NotImplementedError('Мы тут - AbstractRefuelingTransport')
+# =====> Заводы заправочных станций <=====
+class AbstractStationFactory:
+    def create_station(self):
+        raise NotImplementedError('Мы тут - AbstractStationFactory')
 
 
-class PetrolRefuelingTransport(AbstractRefuelingTransport):
-    def refuel(self):
-        return PetrolFuelingStation(self.transport, self.count_fuel)
-
-
-class DieselRefuelingTransport(AbstractRefuelingTransport):
-    def refuel(self):
-        return DieselFuelingStation(self.transport, self.count_fuel)
-
-
-class ElectricRefuelingTransport(AbstractRefuelingTransport):
-    def refuel(self):
-        return ElectricFuelingStation(self.transport, self.count_fuel)
-
-
-class HydrogenRefuelingTransport(AbstractRefuelingTransport):
-    def refuel(self):
-        return HydrogenFuelingStation(self.transport, self.count_fuel)
-
-
-class UraniumRefuelingTransport(AbstractRefuelingTransport):
-    def refuel(self):
-        return UraniumFuelingStation(self.transport, self.count_fuel)
-
-
-class AntimatterRefuelingTransport(AbstractRefuelingTransport):
-    def refuel(self):
-        return PetrolFuelingStation(self.transport, self.count_fuel)
-
-
-# =====> Выбор заправочной станции <=====
-class FuelStation(AbstractFuelingStation):
+class PetrolStationFactory(AbstractStationFactory):
     """
-    Выбор заправочной станции в зависимости от типа топлива
+    Создаем заправочную станцию бензина
     """
 
-    def add_fuel(self):
-        if self.transport.fuel_type._name == 'Бензин':
-            print(f'{self.transport.name} заправлен  {self.count_fuel} ед. {self.transport.fuel_type._name}')
-            return PetrolRefuelingTransport(self.transport, self.count_fuel).refuel()
-        elif self.transport.fuel_type._name == 'Дизель':
-            print(f'{self.transport.name} заправлен  {self.count_fuel} ед. {self.transport.fuel_type._name}')
-            return DieselRefuelingTransport(self.transport, self.count_fuel).refuel()
-        elif self.transport.fuel_type._name == 'Электричество':
-            print(f'{self.transport.name} заправлен  {self.count_fuel} ед. {self.transport.fuel_type._name}')
-            return ElectricRefuelingTransport(self.transport, self.count_fuel).refuel()
-        elif self.transport.fuel_type._name == 'Водород':
-            print(f'{self.transport.name} заправлен  {self.count_fuel} ед. {self.transport.fuel_type._name}')
-            return HydrogenRefuelingTransport(self.transport, self.count_fuel).refuel()
-        elif self.transport.fuel_type._name == 'Уран':
-            print(f'{self.transport.name} заправлен  {self.count_fuel} ед. {self.transport.fuel_type._name}')
-            return UraniumRefuelingTransport(self.transport, self.count_fuel).refuel()
-        elif self.transport.fuel_type._name == 'Антиматерия':
-            print(f'{self.transport.name} заправлен  {self.count_fuel} ед. {self.transport.fuel_type._name}')
-            return AntimatterRefuelingTransport(self.transport, self.count_fuel).refuel()
+    def create_station(self):
+        return PetrolFuelingStation()
+
+
+class DieselStationFactory(AbstractStationFactory):
+    """
+    Создаем заправочную станцию дизеля
+    """
+
+    def create_station(self):
+        return DieselFuelingStation()
+
+
+class ElectricStationFactory(AbstractStationFactory):
+    """
+    Создаем заправочную станцию электричества
+    """
+
+    def create_station(self):
+        return ElectricFuelingStation()
+
+
+class HydrogenStationFactory(AbstractStationFactory):
+    """
+    Создаем заправочную станцию водорода
+    """
+
+    def create_station(self):
+        return HydrogenFuelingStation()
+
+
+class UraniumStationFactory(AbstractStationFactory):
+    """
+    Создаем заправочную станцию урана
+    """
+
+    def create_station(self):
+        return UraniumFuelingStation()
+
+
+class AntimatterStationFactory(AbstractStationFactory):
+    """
+    Создаем заправочную станцию антиматерии
+    """
+
+    def create_station(self):
+        return AntimatterFuelingStation()
+
+
+# =====> Создание заправочной станции <=====
+class FuelingStation:
+
+    def create_station(self, fueling_type):
+        if fueling_type == 'Бензин':
+            return PetrolStationFactory().create_station()
+        elif fueling_type == 'Дизель':
+            return DieselStationFactory().create_station()
+        elif fueling_type == 'Электричество':
+            return ElectricStationFactory().create_station()
+        elif fueling_type == 'Водород':
+            return HydrogenStationFactory().create_station()
+        elif fueling_type == 'Уран':
+            return UraniumStationFactory().create_station()
+        elif fueling_type == 'Антиматерия':
+            return AntimatterStationFactory().create_station()
         else:
-            return 'Такой заправки не существует'
+            return 'ERROR: not correct fueling station!'
+
+
+# =====> Заправка транспорта <=====
+class RefuelingTransport:
+    def refueling(self, station, transport, count_fuel):
+        print(f'{transport.name} заправлен {count_fuel} ед. {transport.fuel_type}')
+        return FuelingStation().create_station(station).add_fuel(transport, count_fuel)
 
 
 # =====> test <=====
-# print('=========== Создание транспорта =============')
-# transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
-# print()
-# print('=========== Заправка транспорта =============')
-# station_1 = FuelStation(transport_1, 400).add_fuel()
+print('======= Создание заправочной станции ========')
+station_1 = FuelingStation().create_station('Антиматерия')
+print(station_1)
+print()
+print('=========== Создание транспорта =============')
+transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
+print()
+print('=========== Заправка транспорта =============')
+refueling_1 = RefuelingTransport().refueling('Антиматерия', transport_1, 300)
+# print(refueling_1)

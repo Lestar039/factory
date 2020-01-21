@@ -133,5 +133,5 @@ class FuelFactory:
 
 
 # =====> test <=====
-fuel_1 = FuelFactory().create_fuel('Уран', 400)
-print(fuel_1)
+# fuel_1 = FuelFactory().create_fuel('Уран', 400)
+# print(fuel_1)

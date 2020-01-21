@@ -72,3 +72,8 @@ class EngineFactory:
             return RotorFactory().create_engine()
         elif engine == 'Реактивный':
             return ReactiveFactory().create_engine()
+
+
+# =====> test <=====
+# engine_1 = EngineFactory().create_engine('Роторный')
+# print(engine_1)

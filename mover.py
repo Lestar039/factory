@@ -90,3 +90,8 @@ class MoverFactory:
             return ScrewFactory().create_mover()
         elif mover == 'Реактивное сопло':
             return ReactiveMoverFactory().create_mover()
+
+
+# =====> test <=====
+# mover_1 = MoverFactory().create_mover('Винт')
+# print(mover_1)
