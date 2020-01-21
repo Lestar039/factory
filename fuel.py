@@ -118,23 +118,18 @@ class FuelFactory:
     """
 
     def create_fuel(self, fuel, count_fuel):
+        # print(f'Создано {count_fuel} ед. топлива: {fuel}')
         if fuel == 'Бензин':
-            print(f'Создано {count_fuel} ед. топлива: {fuel}')
             return PetrolFuelFactory().create_fuel(count_fuel)
         elif fuel == 'Дизель':
-            print(f'Создано {count_fuel} ед. топлива: {fuel}')
             return DieselFuelFactory().create_fuel(count_fuel)
         elif fuel == 'Электричество':
-            print(f'Создано {count_fuel} ед. топлива: {fuel}')
             return BatteryFuelFactory().create_fuel(count_fuel)
         elif fuel == 'Водород':
-            print(f'Создано {count_fuel} ед. топлива: {fuel}')
             return HydrogenFuelFactory().create_fuel(count_fuel)
         elif fuel == 'Уран':
-            print(f'Создано {count_fuel} ед. топлива: {fuel}')
             return UranusFuelFactory().create_fuel(count_fuel)
         elif fuel == 'Антиматерия':
-            print(f'Создано {count_fuel} ед. топлива: {fuel}')
             return AntimatterFuelFactory().create_fuel(count_fuel)
 
 
