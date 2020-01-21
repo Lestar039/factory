@@ -136,9 +136,13 @@ class FuelingStation:
 
 # =====> Заправка транспорта <=====
 class RefuelingTransport:
-    def refueling(self, station, transport, count_fuel):
+    """
+    Заправляем транспорт
+    """
+
+    def refueling(self, transport, count_fuel):
         print(f'{transport.name} заправлен {count_fuel} ед. {transport.fuel_type}')
-        return FuelingStation().create_station(station).add_fuel(transport, count_fuel)
+        return FuelingStation().create_station(transport.fuel_type).add_fuel(transport, count_fuel)
 
 
 # =====> test <=====
@@ -150,5 +154,5 @@ print('=========== Создание транспорта =============')
 transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
 print()
 print('=========== Заправка транспорта =============')
-refueling_1 = RefuelingTransport().refueling('Антиматерия', transport_1, 300)
+refueling_1 = RefuelingTransport().refueling(transport_1, 300)
 # print(refueling_1)
