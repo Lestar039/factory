@@ -115,30 +115,36 @@ class AntimatterFuelFactory(AbstractFuelFactory):
         return AntimatterFuel()
 
 
+class FuelFactoryRouter:
+    """
+    Роутре фабрик
+    """
+
+    def fuel_type_router(self, fuel_type, count_fuel):
+        if fuel_type == 'Бензин':
+            return PetrolFuelFactory()
+        elif fuel_type == 'Дизель':
+            return DieselFuelFactory()
+        elif fuel_type == 'Электричество':
+            return BatteryFuelFactory()
+        elif fuel_type == 'Водород':
+            return HydrogenFuelFactory()
+        elif fuel_type == 'Уран':
+            return UranusFuelFactory()
+        elif fuel_type == 'Антиматерия':
+            return AntimatterFuelFactory()
+
+
 class FuelFactory:
     """
     Конкретный топливный завод
     """
+    fuel_factory_router = FuelFactoryRouter()
 
-    def create_fuel(self, fuel, count_fuel):
-        if fuel == 'Бензин':
-            print(f'Создано {count_fuel} ед. топлива: {fuel}')
-            return PetrolFuelFactory().create_fuel(count_fuel)
-        elif fuel == 'Дизель':
-            print(f'Создано {count_fuel} ед. топлива: {fuel}')
-            return DieselFuelFactory().create_fuel(count_fuel)
-        elif fuel == 'Электричество':
-            print(f'Создано {count_fuel} ед. топлива: {fuel}')
-            return BatteryFuelFactory().create_fuel(count_fuel)
-        elif fuel == 'Водород':
-            print(f'Создано {count_fuel} ед. топлива: {fuel}')
-            return HydrogenFuelFactory().create_fuel(count_fuel)
-        elif fuel == 'Уран':
-            print(f'Создано {count_fuel} ед. топлива: {fuel}')
-            return UranusFuelFactory().create_fuel(count_fuel)
-        elif fuel == 'Антиматерия':
-            print(f'Создано {count_fuel} ед. топлива: {fuel}')
-            return AntimatterFuelFactory().create_fuel(count_fuel)
+    def create_fuel(self, fuel_type, count_fuel):
+        fuel = FuelFactoryRouter().fuel_type_router(fuel_type, count_fuel).create_fuel(count_fuel)
+        print(f'Создано {count_fuel} ед. топлива: {fuel}')
+        return fuel
 
 
 if __name__ == "__main__":

@@ -67,21 +67,29 @@ class ReactiveFactory(AbstractEngineFactory):
         return ReactiveEngine()
 
 
+class EngineFactoryRouter:
+    """
+    Роутре фабрик
+    """
+
+    def engine_type_router(self, engine_type):
+        if engine_type == 'Поршневой':
+            return PistonFactory()
+        elif engine_type == 'Роторный':
+            return RotorFactory()
+        elif engine_type == 'Реактивный':
+            return ReactiveFactory()
+
+
 class EngineFactory:
     """
     Конкретный завод двигателей
     """
 
-    def create_engine(self, engine):
-        if engine == 'Поршневой':
-            print(f'Создан {engine} двигатель')
-            return PistonFactory().create_engine()
-        elif engine == 'Роторный':
-            print(f'Создан {engine} двигатель')
-            return RotorFactory().create_engine()
-        elif engine == 'Реактивный':
-            print(f'Создан {engine} двигатель')
-            return ReactiveFactory().create_engine()
+    def create_engine(self, engine_type):
+        engine = EngineFactoryRouter().engine_type_router(engine_type).create_engine()
+        print(f'Создан {engine}')
+        return engine
 
 
 if __name__ == "__main__":
