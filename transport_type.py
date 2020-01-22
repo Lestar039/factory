@@ -2,12 +2,12 @@
 class AbstractTransport:
     _name = 'абстрактный тип ТС'
 
-    def __init__(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):
+    def __init__(self, name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed):
         self.name = name
         self.type_transport = type_transport
         self.engine = engine
         self.mover = mover
-        self.fuel_type = fuel_type
+        self.fuel = fuel
         self.fuel_consumption = fuel_consumption
         self.transport_speed = transport_speed
 
@@ -45,7 +45,7 @@ class AbstractTransportFactory:
     Абстрактный завод ТС
     """
 
-    def create_transport(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):
+    def create_transport(self, name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed):
         raise NotImplementedError
 
 
@@ -54,8 +54,8 @@ class GroundTransportFactory(AbstractTransportFactory):
     Завод наземного транспорта
     """
 
-    def create_transport(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):
-        return GroundTransport(name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed)
+    def create_transport(self, name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed):
+        return GroundTransport(name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed)
 
 
 class WaterTransportFactory(AbstractTransportFactory):
@@ -63,8 +63,8 @@ class WaterTransportFactory(AbstractTransportFactory):
     Завод водного транспорта
     """
 
-    def create_transport(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):
-        return WaterTransport(name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed)
+    def create_transport(self, name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed):
+        return WaterTransport(name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed)
 
 
 class AirTransportFactory(AbstractTransportFactory):
@@ -72,8 +72,8 @@ class AirTransportFactory(AbstractTransportFactory):
     Завод воздушного транспорта
     """
 
-    def create_transport(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):
-        return AirTransport(name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed)
+    def create_transport(self, name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed):
+        return AirTransport(name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed)
 
 
 class TransportFactory:
@@ -81,19 +81,19 @@ class TransportFactory:
     Конкретный завод ТС
     """
 
-    def create_transport(self, name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed):
+    def create_transport(self, name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed):
         if type_transport == 'Наземное':
-            print(f'Создано {type_transport} транспортное средство')
+            print(f'Создано: {type_transport} транспортное средство')
             return GroundTransportFactory().create_transport(
-                name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed)
+                name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed)
         elif type_transport == 'Водное':
-            print(f'Создано {type_transport} транспортное средство')
+            print(f'Создано: {type_transport} транспортное средство')
             return WaterTransportFactory().create_transport(
-                name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed)
+                name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed)
         elif type_transport == 'Воздушное':
-            print(f'Создано {type_transport} транспортное средство')
+            print(f'Создано: {type_transport} транспортное средство')
             return AirTransportFactory().create_transport(
-                name, type_transport, engine, mover, fuel_type, fuel_consumption, transport_speed)
+                name, type_transport, engine, mover, fuel, fuel_consumption, transport_speed)
 
 
 if __name__ == "__main__":
