@@ -83,24 +83,31 @@ class ReactiveMoverFactory(AbstractMoverFactory):
         return ReactiveMover()
 
 
+class MoverFactoryRouter:
+    """
+    Роутре фабрик
+    """
+
+    def mover_type_router(self, mover_type):
+        if mover_type == 'Колесо':
+            return WheelsFactory()
+        elif mover_type == 'Гусеница':
+            return TrackFactory()
+        elif mover_type == 'Винт':
+            return ScrewFactory()
+        elif mover_type == 'Реактивное сопло':
+            return ReactiveMoverFactory()
+
+
 class MoverFactory:
     """
     Конкретный завод движетелей
     """
 
-    def create_mover(self, mover):
-        if mover == 'Колесо':
-            print(f'Создано {mover}')
-            return WheelsFactory().create_mover()
-        elif mover == 'Гусеница':
-            print(f'Создана {mover}')
-            return TrackFactory().create_mover()
-        elif mover == 'Винт':
-            print(f'Создан {mover}')
-            return ScrewFactory().create_mover()
-        elif mover == 'Реактивное сопло':
-            print(f'Создано {mover}')
-            return ReactiveMoverFactory().create_mover()
+    def create_mover(self, mover_type):
+        mover = MoverFactoryRouter().mover_type_router(mover_type).create_mover()
+        print(f'Создан {mover}')
+        return mover
 
 
 if __name__ == "__main__":
