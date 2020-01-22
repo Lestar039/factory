@@ -2,8 +2,12 @@
 class AbstractFuel:
     _name = 'абстрактное топливо'
 
-    def burn(self):
-        raise NotImplementedError
+    def __init__(self, total):
+        self.total = total
+
+    def burn(self, consumed_quantity):
+        self.total -= consumed_quantity
+        return f'Израсходовалось {consumed_quantity} ед. {self._name}'
 
     def __str__(self):
         return self._name
@@ -12,42 +16,42 @@ class AbstractFuel:
 class PetrolFuel(AbstractFuel):
     _name = 'Бензин'
 
-    def burn(self):
+    def burn(self, consumed_quantity):
         return 'Расходуется бензин'
 
 
 class DieselFuel(AbstractFuel):
     _name = 'Дизель'
 
-    def burn(self):
+    def burn(self, consumed_quantity):
         return 'Расходуется дизель'
 
 
 class BatteryFuel(AbstractFuel):
     _name = 'Батарея'
 
-    def burn(self):
+    def burn(self, consumed_quantity):
         return 'Расходуется батарея'
 
 
 class HydrogenFuel(AbstractFuel):
     _name = 'Водород'
 
-    def burn(self):
+    def burn(self, consumed_quantity):
         return 'Расходуется водород'
 
 
 class UraniumFuel(AbstractFuel):
     _name = 'Уран'
 
-    def burn(self):
+    def burn(self, consumed_quantity):
         return 'Расходуется уран'
 
 
 class AntimatterFuel(AbstractFuel):
     _name = 'Антиматерия'
 
-    def burn(self):
+    def burn(self, consumed_quantity):
         return 'Расходуется антиматерия'
 
 
@@ -67,7 +71,7 @@ class PetrolFuelFactory(AbstractFuelFactory):
     """
 
     def create_fuel(self, count_fuel):
-        return PetrolFuel()
+        return PetrolFuel(count_fuel)
 
 
 class DieselFuelFactory(AbstractFuelFactory):
@@ -76,7 +80,7 @@ class DieselFuelFactory(AbstractFuelFactory):
     """
 
     def create_fuel(self, count_fuel):
-        return DieselFuel()
+        return DieselFuel(count_fuel)
 
 
 class BatteryFuelFactory(AbstractFuelFactory):
@@ -85,7 +89,7 @@ class BatteryFuelFactory(AbstractFuelFactory):
     """
 
     def create_fuel(self, count_fuel):
-        return BatteryFuel()
+        return BatteryFuel(count_fuel)
 
 
 class HydrogenFuelFactory(AbstractFuelFactory):
@@ -94,7 +98,7 @@ class HydrogenFuelFactory(AbstractFuelFactory):
     """
 
     def create_fuel(self, count_fuel):
-        return HydrogenFuel()
+        return HydrogenFuel(count_fuel)
 
 
 class UranusFuelFactory(AbstractFuelFactory):
@@ -103,7 +107,7 @@ class UranusFuelFactory(AbstractFuelFactory):
     """
 
     def create_fuel(self, count_fuel):
-        return UraniumFuel()
+        return UraniumFuel(count_fuel)
 
 
 class AntimatterFuelFactory(AbstractFuelFactory):
@@ -112,7 +116,7 @@ class AntimatterFuelFactory(AbstractFuelFactory):
     """
 
     def create_fuel(self, count_fuel):
-        return AntimatterFuel()
+        return AntimatterFuel(count_fuel)
 
 
 class FuelFactoryRouter:
