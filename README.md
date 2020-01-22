@@ -12,10 +12,6 @@ factory.py - Производит ТС из деталей
 
 move_description.py - Движение ТС
 
-fuel_station.py - Заправочные станции
-
-fueling_transport - Заправка ТС топливом
-
 driver.py - Создание пилота ТС
 
 route.py - Отчет пилота о движении ТС и все запчастей
