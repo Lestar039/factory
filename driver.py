@@ -1,26 +1,44 @@
 from factory import Factory
 
 
-# =====> Создание водителя <=====
-class AbstractPersonFactory:
+# =====> Базовые классы водителей <=====
+class AbstractPerson:
     """
-    Создание абстрактного человека
-    """
-
-    def create_person(self):
-        raise NotImplementedError('Мы тут - AbstractPerson')
-
-
-class Person(AbstractPersonFactory):
-    """
-    Создание конкретного человека
+    Базовый класс человека
     """
 
-    def create_person(self):
+    def motion_report(self):
         return 'Создан человек'
 
 
-# =====> Создание типа водителя  <=====
+class Driver(AbstractPerson):
+    """
+    Базовый класс водителя
+    """
+
+    def motion_report(self):
+        return 'Вожу ТС'
+
+
+class Pilot(AbstractPerson):
+    """
+    Базовый класс пилота
+    """
+
+    def motion_report(self):
+        return 'Пилотирую на ТС'
+
+
+class Captain(AbstractPerson):
+    """
+    Базовый класс капитана
+    """
+
+    def motion_report(self):
+        return 'Плыву на ТС'
+
+
+# =====> Фабрика водителей <=====
 class AbstractDriverFactory:
     """
     Создание абстрактного водителя
@@ -30,31 +48,31 @@ class AbstractDriverFactory:
         raise NotImplementedError('Мы тут - AbstractDrive')
 
 
-class Driver(AbstractDriverFactory):
+class DriverFactory(AbstractDriverFactory):
     """
     Создание водителя
     """
 
     def create_driver(self):
-        return Person()
+        return Driver()
 
 
-class Pilot(AbstractDriverFactory):
+class PilotFactory(AbstractDriverFactory):
     """
-    Создание пилота
-    """
-
-    def create_driver(self):
-        return Person()
-
-
-class Captain(AbstractDriverFactory):
-    """
-    Создание капитана
+    Создание водителя
     """
 
     def create_driver(self):
-        return Person()
+        return Pilot()
+
+
+class CaptainFactory(AbstractDriverFactory):
+    """
+    Создание водителя
+    """
+
+    def create_driver(self):
+        return Captain()
 
 
 class CreateDriver:
@@ -65,18 +83,18 @@ class CreateDriver:
     def create_driver(self, transport, name):
         if transport.type_transport == 'Наземное':
             print(f'Создан водитель: {name}')
-            return Driver().create_driver()
+            return DriverFactory().create_driver()
         elif transport.type_transport == 'Водное':
             print(f'Создан катитан: {name}')
-            return Captain().create_driver()
+            return CaptainFactory().create_driver()
         elif transport.type_transport == 'Воздушное':
             print(f'Создан пилот: {name}')
-            return Pilot().create_driver()
+            return PilotFactory().create_driver()
 
 
 if __name__ == "__main__":
     print('=========== Создание транспорта =============')
-    transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 2, 90)
+    transport_1 = Factory().create('НЛО', 'Воздушное', 'Реактивный', 4, 'Реактивное сопло', 4, 'Антиматерия', 200, 2, 90)
 
     print('============ Создание водителя ==============')
     driver_1 = CreateDriver().create_driver(transport_1, 'Dart Weider')
