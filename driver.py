@@ -1,5 +1,6 @@
 from factory import Factory
 from move_description import Route, TranslateMoveCommand
+from transport_type import AbstractTransport
 
 
 # =====> Базовые классы водителей <=====
@@ -7,12 +8,17 @@ class AbstractPerson:
     """
     Базовый класс человека
     """
+
+    def set_transport(self, transport):
+        self.transport = transport
+
     def set_command(self, command):
         self.command = command
 
     def motion_report(self):
         command_handler = TranslateMoveCommand()
         route_move = Route(command_handler.translate_command(self.command)).make_move()
+        self.transport.move()
         return route_move
 
 
@@ -107,5 +113,6 @@ if __name__ == "__main__":
     driver_1 = CreateDriver().create_driver(transport_1, 'Dart Weider')
     print()
     print('========= Отчет водителя о маршруте =========')
-    command_to_moving = driver_1.set_command(['forward 10', 'backward 20', 'left 30', 'right 40'])
+    command = ['forward 10', 'backward 20', 'left 30', 'right 40']
+    command_to_moving = driver_1.set_command(command)
     driver_1.motion_report()

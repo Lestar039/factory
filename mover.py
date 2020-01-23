@@ -85,7 +85,7 @@ class ReactiveMoverFactory(AbstractMoverFactory):
 
 class MoverFactoryRouter:
     """
-    Роутре фабрик
+    Роутер фабрик
     """
 
     def mover_type_router(self, mover_type):
