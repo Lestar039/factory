@@ -1,3 +1,6 @@
+from factory import Factory
+
+
 # =====> Абстрактное движение <=====
 class AbstractMove:
     _name = 'абстрактное движение'
@@ -25,14 +28,14 @@ class ForwardMove(AbstractMove):
     _name = 'вперед'
 
     def movement(self, distance):
-        return f'движение вперед {distance} ед.'
+        return f'Движется вперед {distance} ед.'
 
 
 class BackwardMove(AbstractMove):
     _name = 'назад'
 
     def movement(self, distance):
-        return f'движение вперед {distance} ед.'
+        return f'Движется вперед {distance} ед.'
 
 
 # =====> Направление поворота <=====
@@ -40,59 +43,14 @@ class LeftRotate(AbstractRotate):
     _name = 'поворот налево'
 
     def make_rotate(self, rotate):
-        return f'поворот налево на {rotate} градусов.'
+        return f'Поворачивает налево на {rotate} градусов.'
 
 
 class RightRotate(AbstractRotate):
     _name = 'поворот направо'
 
     def make_rotate(self, rotate):
-        return f'поворот направо на {rotate} градусов.'
-
-
-# =====> Команды создающие движение <=====
-# class AbstractCommandFactory:
-#     """
-#     Абстрактная команда двигаться
-#     """
-#
-#     def command(self):
-#         return NotImplementedError('Мы тут - AbstractCommand')
-#
-#
-# # class ForwardCommandFactory(AbstractCommandFactory):
-# #     """
-# #     Команда двигаться вперед
-# #     """
-# #
-# #     def command(self):
-# #         return ForwardMove()
-# #
-# #
-# # class BackCommandFactory(AbstractCommandFactory):
-# #     """
-# #     Команда двигаться назад
-# #     """
-# #     def command(self):
-# #         return BackMove()
-# #
-# #
-# # class LeftCommandFactory(AbstractCommandFactory):
-# #     """
-# #     Команда поворачивать налево
-# #     """
-# #
-# #     def command(self):
-# #         return LeftMove()
-# #
-# #
-# # class RightCommandFactory(AbstractCommandFactory):
-# #     """
-# #     Команда поворачивать направо
-# #     """
-# #
-# #     def command(self):
-# #         return RightMove()
+        return f'Поворачивает направо на {rotate} градусов.'
 
 
 class DescriptionMove:
@@ -100,14 +58,11 @@ class DescriptionMove:
     Конкретная команда двигаться
     """
 
-    # разбиваем маршрут на направление и количество единиц(градусов)
     def movement(self, movement, traffic):
-        # direction_of_travel = movement.split(' ')[0]
-        # traffic = movement.split(' ')[1]
 
         if movement == 'forward':
             return ForwardMove().movement(traffic)
-        elif movement == 'back':
+        elif movement == 'backward':
             return BackwardMove().movement(traffic)
         elif movement == 'left':
             return LeftRotate().make_rotate(traffic)
@@ -131,22 +86,20 @@ class Route:
                 print('Приехали')
 
 
-class SetMoveCommand:
+class TranslateMoveCommand:
+    new_command_list = []
 
-    def set_command(self, ):
-        pass
+    def translate_command(self, movement: list):
+        for command in movement:
+            direction_of_travel = command.split(' ')[0]
+            traffic = command.split(' ')[1]
+            new_direction = DescriptionMove().movement(direction_of_travel, traffic)
+            TranslateMoveCommand().new_command_list.append(new_direction)
+        return TranslateMoveCommand().new_command_list
 
 
 if __name__ == "__main__":
-    move_1 = DescriptionMove()
-    # print(move_1.movement('forward', 45))
-    # print(move_1.movement('back', 37))
-    # print(move_1.movement('left', 89))
-    # print(move_1.movement('right', 123))
-
-    route_1 = Route(['forward 10', 'backward 20', 'left 30', 'right 40'])
+    command_to_moving = ['forward 10', 'backward 20', 'left 30', 'right 40']
+    command_handler = TranslateMoveCommand()
+    route_1 = Route(TranslateMoveCommand().translate_command(command_to_moving))
     route_1.make_move()
-    # route_1.make_move()
-    # route_1.make_move()
-    # route_1.make_move()
-    # route_1.make_move()
