@@ -1,8 +1,6 @@
 # ====> Тип танспортного средства <=====
 class AbstractTransport:
     _name = 'абстрактный тип ТС'
-    distance: float
-    fuel_consumption: float
 
     def __init__(self, name, type_transport, engines, movers, fuel, fuel_consumption, transport_speed):
         self.name = name
@@ -18,7 +16,7 @@ class AbstractTransport:
         if self.fuel.total > 0:
             print(self.fuel.burn(float(distance) / float(self.fuel_consumption)))
         else:
-           print('Закончилось топливо')
+            print('Закончилось топливо')
 
         for engine in self.engines:
             print(engine.work(distance))

@@ -1,15 +1,24 @@
 # =====> Создание маршрута движения <=====
 class DistanceDirection:
+    """
+    Команды движения
+    """
     Forward = 'forward'
     Backward = 'backward'
 
 
 class RotationDirection:
+    """
+    Команды поворота
+    """
     Left = 'left'
     Right = 'right'
 
 
 class DistanceMove:
+    """
+    Создание движения
+    """
 
     def __init__(self, direction, distance):
         self.distance = distance
@@ -17,6 +26,9 @@ class DistanceMove:
 
 
 class RotateMove:
+    """
+    Создание поворота
+    """
 
     def __init__(self, direction, rotate):
         self.rotate = rotate
@@ -25,7 +37,7 @@ class RotateMove:
 
 class DescriptionMove:
     """
-    Направление движения
+    Выбор направления движения
     """
 
     def command(self, movement, value):
@@ -43,7 +55,7 @@ class DescriptionMove:
 
 class CreateRoute:
     """
-    Защбивает список на движение и дистанцию
+    Создаем список команд
     """
 
     def create_route(self, command_list):
@@ -67,7 +79,7 @@ class Route:
         while len(self.command_moving) > 0:
             return self.command_moving.pop(0)
         else:
-            return 'Приехали'
+            return
 
 
 if __name__ == "__main__":

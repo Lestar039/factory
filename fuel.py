@@ -1,6 +1,7 @@
 # =====> Топливо <=====
 class AbstractFuel:
     _name = 'абстрактное топливо'
+    total: float
 
     def __init__(self, total):
         self.total = total
@@ -162,7 +163,6 @@ class BurningFuel:
         self.count_fuel = transport.fuel
         print(self.count_fuel)
         burning = transport.fuel_consumption
-        # print(f'Израсходовано {burning} ед. топлива: {transport.fuel}')
         return burning
 
 

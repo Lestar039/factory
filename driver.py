@@ -1,7 +1,5 @@
 from factory import Factory
 from move_description import DistanceDirection, RotationDirection
-from transport_type import AbstractTransport
-from engine import AbstractEngine
 
 
 # =====> Базовые классы водителей <=====
@@ -9,37 +7,47 @@ class AbstractPerson:
     """
     Базовый класс человека
     """
-    transport: AbstractTransport
 
     def set_transport(self, transport):
+        """
+        Передаем трпнспорт пилоту
+        """
         self.transport = transport
 
     def set_command(self, command):
+        """
+        Передаем пилоту список команд движения
+        """
         self.command = command
 
     def motion_report(self):
+        """
+        Отчет пилота и всех запчастей о пройденом пути
+        Контроль расхода топлива
+        """
 
         for moving in self.command.command_moving:
 
-            if len(self.command.command_moving) > 0:
+            if moving.direction == DistanceDirection.Forward:
+                print(f'{self.transport._name} {self.transport.move_type()} вперед {moving.distance} ед.')
+                self.transport.move(moving.distance)
+            elif moving.direction == DistanceDirection.Backward:
+                print(f'{self.transport._name} {self.transport.move_type()} назад {moving.distance} ед.')
+                self.transport.move(moving.distance)
 
-                if moving.direction == DistanceDirection.Forward:
-                    print(f'{self.transport._name} {self.transport.move_type()} вперед {moving.distance} ед.')
+            elif moving.direction == RotationDirection.Left:
+                print(f'{self.transport._name} поворачивает {moving.rotate} градусов')
+            elif moving.direction == RotationDirection.Right:
+                print(f'{self.transport._name} поворачивает {moving.rotate} градусов')
 
-                    self.transport.move(moving.distance)
-
-                elif moving.direction == DistanceDirection.Backward:
-                    print(f'{self.transport._name} {self.transport.move_type()} назад {moving.distance} ед.')
-
-                    self.transport.move(moving.distance)
-
-                elif moving.direction == RotationDirection.Left:
-                    print(f'{self.transport._name} поворачивает {moving.rotate} градусов')
-                elif moving.direction == RotationDirection.Right:
-                    print(f'{self.transport._name} поворачивает {moving.rotate} градусов')
-            else:
-                print('Прибыли на место назначения')
+            if self.transport.fuel.total <= 0:
+                print('Закончилось топливо')
                 break
+
+        if self.transport.fuel.total <= 0:
+            pass
+        else:
+            print('Прибыли на место назначения')
 
 
 class Driver(AbstractPerson):
@@ -131,7 +139,3 @@ if __name__ == "__main__":
     print()
     print('============ Создание водителя ==============')
     driver_1 = CreateDriver().create_driver(transport_1, 'Dart Weider')
-    print()
-    print('========= Отчет водителя о маршруте =========')
-    command_to_moving = driver_1.set_command(['forward 10', 'backward 20', 'left 30', 'right 40'])
-    driver_1.motion_report()
