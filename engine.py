@@ -1,15 +1,8 @@
 # =====> Двигатели <=====
 class AbstractEngine:
     _name = 'абстрактный двигатель'
-    total: float
-
-    # def __init__(self, total):
-    #     self.total = total
-    def set_distance(self, distance):
-        self.distance = distance
 
     def work(self, consumed_distance):
-        self.total -= consumed_distance
         return f'{self._name} работает {consumed_distance} ед.'
 
     def __str__(self):
@@ -21,7 +14,7 @@ class PistonEngine(AbstractEngine):
 
     def work(self, consumed_distance):
         super().work(consumed_distance)
-        # return f'Поршневой двигатель работает'
+        return f'Поршневой двигатель работает {consumed_distance} ед.'
 
 
 class RotorEngine(AbstractEngine):
@@ -29,7 +22,7 @@ class RotorEngine(AbstractEngine):
 
     def work(self, consumed_distance):
         super().work(consumed_distance)
-        # return f'Роторный двигатель работает'
+        return f'Роторный двигатель работает {consumed_distance} ед.'
 
 
 class ReactiveEngine(AbstractEngine):
@@ -37,7 +30,7 @@ class ReactiveEngine(AbstractEngine):
 
     def work(self, consumed_distance):
         super().work(consumed_distance)
-        # return f'Реактивный двигатель работает'
+        return f'Реактивный двигатель работает {consumed_distance} ед.'
 
 
 # =====> Заводы двигателей <=====

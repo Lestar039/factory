@@ -2,8 +2,8 @@
 class AbstractMover:
     _name = 'абстрактный движетель'
 
-    def move(self):
-        raise NotImplementedError
+    def move(self, move_distance):
+        return f'{self._name} работает {move_distance} ед.'
 
     def __str__(self):
         return self._name
@@ -12,29 +12,33 @@ class AbstractMover:
 class WheelsMover(AbstractMover):
     _name = 'Колесо'
 
-    def move(self):
-        return 'Колесо крутится'
+    def move(self, move_distance):
+        super().move(move_distance)
+        return f'Колесо крутится {move_distance} ед.'
 
 
 class TrackMover(AbstractMover):
     _name = 'Гусеница'
 
-    def move(self):
-        return 'Гусеница крутится'
+    def move(self, move_distance):
+        super().move(move_distance)
+        return f'Гусеница крутится {move_distance} ед.'
 
 
 class ScrewMover(AbstractMover):
     _name = 'Винт'
 
-    def move(self):
-        return 'Винт крутится'
+    def move(self, move_distance):
+        super().move(move_distance)
+        return f'Винт крутится {move_distance} ед.'
 
 
 class ReactiveMover(AbstractMover):
     _name = 'Реактивное сопло'
 
-    def move(self):
-        return 'Реактивное сопло работает'
+    def move(self, move_distance):
+        super().move(move_distance)
+        return f'Реактивное сопло работает {move_distance} ед.'
 
 
 # =====> Заводы движителей <=====

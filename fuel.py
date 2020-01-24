@@ -7,7 +7,6 @@ class AbstractFuel:
 
     def burn(self, consumed_quantity):
         self.total -= consumed_quantity
-        return f'Израсходовалось {consumed_quantity} ед. {self._name}'
 
     def __str__(self):
         return self._name
@@ -18,7 +17,7 @@ class PetrolFuel(AbstractFuel):
 
     def burn(self, consumed_quantity):
         super().burn(consumed_quantity)
-        return f'Расходуется {consumed_quantity} ед. бензина'
+        return f'Израсходовано {consumed_quantity} ед. бензина'
 
 
 class DieselFuel(AbstractFuel):
@@ -26,7 +25,7 @@ class DieselFuel(AbstractFuel):
 
     def burn(self, consumed_quantity):
         super().burn(consumed_quantity)
-        return f'Расходуется {consumed_quantity} ед. дизеля'
+        return f'Израсходовано {consumed_quantity} ед. дизеля'
 
 
 class BatteryFuel(AbstractFuel):
@@ -34,7 +33,7 @@ class BatteryFuel(AbstractFuel):
 
     def burn(self, consumed_quantity):
         super().burn(consumed_quantity)
-        return f'Расходуется {consumed_quantity} ед. батареи'
+        return f'Израсходовано {consumed_quantity} ед. батареи'
 
 
 class HydrogenFuel(AbstractFuel):
@@ -42,7 +41,7 @@ class HydrogenFuel(AbstractFuel):
 
     def burn(self, consumed_quantity):
         super().burn(consumed_quantity)
-        return f'Расходуется {consumed_quantity} ед. водорода'
+        return f'Израсходовано {consumed_quantity} ед. водорода'
 
 
 class UraniumFuel(AbstractFuel):
@@ -50,7 +49,7 @@ class UraniumFuel(AbstractFuel):
 
     def burn(self, consumed_quantity):
         super().burn(consumed_quantity)
-        return f'Расходуется {consumed_quantity} ед. урана'
+        return f'Израсходовано {consumed_quantity} ед. урана'
 
 
 class AntimatterFuel(AbstractFuel):
@@ -58,7 +57,7 @@ class AntimatterFuel(AbstractFuel):
 
     def burn(self, consumed_quantity):
         super().burn(consumed_quantity)
-        return f'Расходуется {consumed_quantity} ед. антиматерии'
+        return f'Израсходовано {consumed_quantity} ед. антиматерии'
 
 
 # =====> Топливные заводы <=====

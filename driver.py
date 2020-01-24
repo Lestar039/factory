@@ -18,26 +18,28 @@ class AbstractPerson:
         self.command = command
 
     def motion_report(self):
+
         for moving in self.command.command_moving:
-            if moving.direction == DistanceDirection.Forward:
-                print(f'{self.transport._name} {self.transport.move_type()} вперед {moving.distance} ед.')
-            elif moving.direction == DistanceDirection.Backward:
-                print(f'{self.transport._name} {self.transport.move_type()} назад {moving.distance} ед.')
-            elif moving.direction == RotationDirection.Left:
-                print(f'{self.transport._name} поворачивает {moving.rotate} градусов')
-            elif moving.direction == RotationDirection.Right:
-                print(f'{self.transport._name} поворачивает {moving.rotate} градусов')
 
-        # SET set_distance!!!
-        # self.transport.move()
+            if len(self.command.command_moving) > 0:
 
-        # while self.transport.fuel.total > 0:
-        #     command_handler = TranslateMoveCommand()
-        #     Route(command_handler.translate_command(self.command)).make_move()
-        #     self.transport.move()
-        #     print()
-        # else:
-        #     print('Топливо закончилось')
+                if moving.direction == DistanceDirection.Forward:
+                    print(f'{self.transport._name} {self.transport.move_type()} вперед {moving.distance} ед.')
+
+                    self.transport.move(moving.distance)
+
+                elif moving.direction == DistanceDirection.Backward:
+                    print(f'{self.transport._name} {self.transport.move_type()} назад {moving.distance} ед.')
+
+                    self.transport.move(moving.distance)
+
+                elif moving.direction == RotationDirection.Left:
+                    print(f'{self.transport._name} поворачивает {moving.rotate} градусов')
+                elif moving.direction == RotationDirection.Right:
+                    print(f'{self.transport._name} поворачивает {moving.rotate} градусов')
+            else:
+                print('Прибыли на место назначения')
+                break
 
 
 class Driver(AbstractPerson):
