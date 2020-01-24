@@ -1,6 +1,7 @@
 # ====> Тип танспортного средства <=====
 class AbstractTransport:
     _name = 'абстрактный тип ТС'
+    distance: float
 
     def __init__(self, name, type_transport, engines, movers, fuel, fuel_consumption, transport_speed):
         self.name = name
@@ -11,10 +12,16 @@ class AbstractTransport:
         self.fuel_consumption = fuel_consumption
         self.transport_speed = transport_speed
 
-    def move(self):
+    def move(self, distance):
+
+        if self.fuel.total > 0:
+            print(self.fuel.burn(self.fuel_consumption))
+        else:
+            print('Закончилось топливо')
 
         for engine in self.engines:
-            print(engine.work())
+            result = self.distance / self.fuel_consumption
+            print(engine.work(result))
 
         for mover in self.movers:
             print(mover.move())
@@ -26,22 +33,30 @@ class AbstractTransport:
 class GroundTransport(AbstractTransport):
     _name = 'Наземный транспорт'
 
-    # def move(self):
-    #     return 'едет'
+    def move(self, distance):
+        super().move(distance)
+
+    def move_type(self):
+        return 'едет'
 
 
 class WaterTransport(AbstractTransport):
     _name = 'Водный транспорт'
 
-    # def move(self):
-    #     return 'плывет'
+    def move(self, distance):
+        super().move(distance)
 
+    def move_type(self):
+        return 'плывет'
 
 class AirTransport(AbstractTransport):
     _name = 'Воздушный транспорт'
 
-    # def move(self):
-    #     return 'летит'
+    def move(self, distance):
+        super().move(distance)
+
+    def move_type(self):
+        return 'летит'
 
 
 # =====> Типы заводов транспорта <=====

@@ -1,6 +1,7 @@
 from factory import Factory
-from move_description import Route, TranslateMoveCommand
+from move_description import DistanceDirection, RotationDirection
 from transport_type import AbstractTransport
+from engine import AbstractEngine
 
 
 # =====> Базовые классы водителей <=====
@@ -8,6 +9,7 @@ class AbstractPerson:
     """
     Базовый класс человека
     """
+    transport: AbstractTransport
 
     def set_transport(self, transport):
         self.transport = transport
@@ -16,10 +18,26 @@ class AbstractPerson:
         self.command = command
 
     def motion_report(self):
-        command_handler = TranslateMoveCommand()
-        route_move = Route(command_handler.translate_command(self.command)).make_move()
-        self.transport.move()
-        return route_move
+        for moving in self.command.command_moving:
+            if moving.direction == DistanceDirection.Forward:
+                print(f'{self.transport._name} {self.transport.move_type()} вперед {moving.distance} ед.')
+            elif moving.direction == DistanceDirection.Backward:
+                print(f'{self.transport._name} {self.transport.move_type()} назад {moving.distance} ед.')
+            elif moving.direction == RotationDirection.Left:
+                print(f'{self.transport._name} поворачивает {moving.rotate} градусов')
+            elif moving.direction == RotationDirection.Right:
+                print(f'{self.transport._name} поворачивает {moving.rotate} градусов')
+
+        # SET set_distance!!!
+        # self.transport.move()
+
+        # while self.transport.fuel.total > 0:
+        #     command_handler = TranslateMoveCommand()
+        #     Route(command_handler.translate_command(self.command)).make_move()
+        #     self.transport.move()
+        #     print()
+        # else:
+        #     print('Топливо закончилось')
 
 
 class Driver(AbstractPerson):
@@ -113,6 +131,5 @@ if __name__ == "__main__":
     driver_1 = CreateDriver().create_driver(transport_1, 'Dart Weider')
     print()
     print('========= Отчет водителя о маршруте =========')
-    command = ['forward 10', 'backward 20', 'left 30', 'right 40']
-    command_to_moving = driver_1.set_command(command)
+    command_to_moving = driver_1.set_command(['forward 10', 'backward 20', 'left 30', 'right 40'])
     driver_1.motion_report()

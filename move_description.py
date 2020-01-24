@@ -1,105 +1,76 @@
-from factory import Factory
+# =====> Создание маршрута движения <=====
+class DistanceDirection:
+    Forward = 'forward'
+    Backward = 'backward'
 
 
-# =====> Абстрактное движение <=====
-class AbstractMove:
-    _name = 'абстрактное движение'
-
-    def movement(self, distance):
-        raise NotImplementedError('Мы тут - AbstractMove')
-
-    def __str__(self):
-        return self._name
+class RotationDirection:
+    Left = 'left'
+    Right = 'right'
 
 
-# =====> Абстрактный поворот <=====
-class AbstractRotate:
-    _name = 'абстрактный поворот'
+class DistanceMove:
 
-    def make_rotate(self, rotate):
-        raise NotImplementedError('Мы тут - AbstractRotate')
-
-    def __str__(self):
-        return self._name
+    def __init__(self, direction, distance):
+        self.distance = distance
+        self.direction = direction
 
 
-# =====> Направление движения <=====
-class ForwardMove(AbstractMove):
-    _name = 'вперед'
+class RotateMove:
 
-    def movement(self, distance):
-        return f'Движется вперед {distance} ед.'
-
-
-class BackwardMove(AbstractMove):
-    _name = 'назад'
-
-    def movement(self, distance):
-        return f'Движется вперед {distance} ед.'
-
-
-# =====> Направление поворота <=====
-class LeftRotate(AbstractRotate):
-    _name = 'поворот налево'
-
-    def make_rotate(self, rotate):
-        return f'Поворачивает налево на {rotate} градусов.'
-
-
-class RightRotate(AbstractRotate):
-    _name = 'поворот направо'
-
-    def make_rotate(self, rotate):
-        return f'Поворачивает направо на {rotate} градусов.'
+    def __init__(self, direction, rotate):
+        self.rotate = rotate
+        self.direction = direction
 
 
 class DescriptionMove:
     """
-    Конкретная команда двигаться
+    Направление движения
     """
 
-    def movement(self, movement, traffic):
-
+    def command(self, movement, value):
         if movement == 'forward':
-            return ForwardMove().movement(traffic)
+            return DistanceMove(distance=value, direction=DistanceDirection.Forward)
         elif movement == 'backward':
-            return BackwardMove().movement(traffic)
+            return DistanceMove(distance=value, direction=DistanceDirection.Backward)
         elif movement == 'left':
-            return LeftRotate().make_rotate(traffic)
+            return RotateMove(rotate=value, direction=RotationDirection.Left)
         elif movement == 'right':
-            return RightRotate().make_rotate(traffic)
+            return RotateMove(rotate=value, direction=RotationDirection.Right)
         else:
-            return 'ERROR: transport not moving'
+            print('ERROR: transport not moving')
+
+
+class CreateRoute:
+    """
+    Защбивает список на движение и дистанцию
+    """
+
+    def create_route(self, command_list):
+        new_commands = []
+        for command in command_list:
+            direction_of_travel = command.split(' ')[0]
+            traffic = command.split(' ')[1]
+            new_commands.append(DescriptionMove().command(direction_of_travel, traffic))
+        return new_commands
 
 
 class Route:
-    input_move: list
+    """
+    Извлекает 1-й элемент из списка команд
+    """
 
     def __init__(self, command_moving):
-        self.input_move = command_moving
+        self.command_moving = command_moving
 
     def make_move(self):
-        while len(self.input_move) != 0:
-            if len(self.input_move) > 0:
-                print(self.input_move.pop(0))
-            else:
-                print('Приехали')
-
-
-class TranslateMoveCommand:
-    new_command_list = []
-
-    def translate_command(self, movement: list):
-        for command in movement:
-            direction_of_travel = command.split(' ')[0]
-            traffic = command.split(' ')[1]
-            new_direction = DescriptionMove().movement(direction_of_travel, traffic)
-            TranslateMoveCommand().new_command_list.append(new_direction)
-        return TranslateMoveCommand().new_command_list
+        while len(self.command_moving) > 0:
+            return self.command_moving.pop(0)
+        else:
+            return 'Приехали'
 
 
 if __name__ == "__main__":
-    command_to_moving = ['forward 10', 'backward 20', 'left 30', 'right 40']
-    command_handler = TranslateMoveCommand()
-    route_1 = Route(TranslateMoveCommand().translate_command(command_to_moving))
-    route_1.make_move()
+    command = ['forward 100', 'backward 300', 'left 30', 'right 40', 'forward 160']
+    create_1 = CreateRoute().create_route(command)
+    route_1 = Route(create_1).make_move()

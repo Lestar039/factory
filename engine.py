@@ -1,9 +1,16 @@
 # =====> Двигатели <=====
 class AbstractEngine:
     _name = 'абстрактный двигатель'
+    total: float
 
-    def work(self):
-        raise NotImplementedError
+    # def __init__(self, total):
+    #     self.total = total
+    def set_distance(self, distance):
+        self.distance = distance
+
+    def work(self, consumed_distance):
+        self.total -= consumed_distance
+        return f'{self._name} работает {consumed_distance} ед.'
 
     def __str__(self):
         return self._name
@@ -12,22 +19,25 @@ class AbstractEngine:
 class PistonEngine(AbstractEngine):
     _name = 'Поршневой двигатель'
 
-    def work(self):
-        return 'Поршневой двигатель работает'
+    def work(self, consumed_distance):
+        super().work(consumed_distance)
+        # return f'Поршневой двигатель работает'
 
 
 class RotorEngine(AbstractEngine):
     _name = 'Роторный двигатель'
 
-    def work(self):
-        return 'Роторный двигатель работает'
+    def work(self, consumed_distance):
+        super().work(consumed_distance)
+        # return f'Роторный двигатель работает'
 
 
 class ReactiveEngine(AbstractEngine):
     _name = 'Реактивный двигатель'
 
-    def work(self):
-        return 'Реактивный двигатель работает'
+    def work(self, consumed_distance):
+        super().work(consumed_distance)
+        # return f'Реактивный двигатель работает'
 
 
 # =====> Заводы двигателей <=====
@@ -69,7 +79,7 @@ class ReactiveFactory(AbstractEngineFactory):
 
 class EngineFactoryRouter:
     """
-    Роутре фабрик
+    Роутер фабрик
     """
 
     def engine_type_router(self, engine_type):
