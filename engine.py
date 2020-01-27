@@ -12,25 +12,13 @@ class AbstractEngine:
 class PistonEngine(AbstractEngine):
     _name = 'Поршневой двигатель'
 
-    def work(self, consumed_distance):
-        super().work(consumed_distance)
-        return f'Поршневой двигатель работает {consumed_distance} ед.'
-
 
 class RotorEngine(AbstractEngine):
     _name = 'Роторный двигатель'
 
-    def work(self, consumed_distance):
-        super().work(consumed_distance)
-        return f'Роторный двигатель работает {consumed_distance} ед.'
-
 
 class ReactiveEngine(AbstractEngine):
     _name = 'Реактивный двигатель'
-
-    def work(self, consumed_distance):
-        super().work(consumed_distance)
-        return f'Реактивный двигатель работает {consumed_distance} ед.'
 
 
 # =====> Заводы двигателей <=====

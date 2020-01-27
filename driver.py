@@ -8,6 +8,8 @@ class AbstractPerson:
     Базовый класс человека
     """
 
+    _name = 'abstract person'
+
     def set_transport(self, transport):
         """
         Передаем трпнспорт пилоту
@@ -54,27 +56,21 @@ class Driver(AbstractPerson):
     """
     Базовый класс водителя
     """
-
-    def motion_report(self):
-        super().motion_report()
+    _name = 'водитель'
 
 
 class Pilot(AbstractPerson):
     """
     Базовый класс пилота
     """
-
-    def motion_report(self):
-        super().motion_report()
+    _name = 'пилот'
 
 
 class Captain(AbstractPerson):
     """
     Базовый класс капитана
     """
-
-    def motion_report(self):
-        super().motion_report()
+    _name = 'капитан'
 
 
 # =====> Фабрика водителей <=====
@@ -115,21 +111,29 @@ class CaptainFactory(AbstractDriverFactory):
 
 
 # =====> Создание водителей <=====
+class CreateDriverRouter:
+    """
+    Роутер водителей
+    """
+
+    def engine_type_router(self, transport):
+        if transport.type_transport == 'Наземное':
+            return DriverFactory()
+        elif transport.type_transport == 'Водное':
+            return CaptainFactory()
+        elif transport.type_transport == 'Воздушное':
+            return PilotFactory()
+
+
 class CreateDriver:
     """
     Создание водителей
     """
 
     def create_driver(self, transport, name):
-        if transport.type_transport == 'Наземное':
-            print(f'Создан водитель: {name}')
-            return DriverFactory().create_driver()
-        elif transport.type_transport == 'Водное':
-            print(f'Создан катитан: {name}')
-            return CaptainFactory().create_driver()
-        elif transport.type_transport == 'Воздушное':
-            print(f'Создан пилот: {name}')
-            return PilotFactory().create_driver()
+        driver = CreateDriverRouter().engine_type_router(transport).create_driver()
+        print(f'Создан водитель: {name}')
+        return driver
 
 
 if __name__ == "__main__":

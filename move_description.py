@@ -61,8 +61,7 @@ class CreateRoute:
     def create_route(self, command_list):
         new_commands = []
         for command in command_list:
-            direction_of_travel = command.split(' ')[0]
-            traffic = command.split(' ')[1]
+            direction_of_travel, traffic = command.split()
             new_commands.append(DescriptionMove().command(direction_of_travel, traffic))
         return new_commands
 
@@ -76,10 +75,8 @@ class Route:
         self.command_moving = command_moving
 
     def make_move(self):
-        while len(self.command_moving) > 0:
-            return self.command_moving.pop(0)
-        else:
-            return
+        for command in self.command_moving:
+            return command
 
 
 if __name__ == "__main__":

@@ -8,6 +8,7 @@ class AbstractFuel:
 
     def burn(self, consumed_quantity):
         self.total -= consumed_quantity
+        return f'Израсходовано {consumed_quantity} ед. {self._name}'
 
     def __str__(self):
         return self._name
@@ -16,49 +17,25 @@ class AbstractFuel:
 class PetrolFuel(AbstractFuel):
     _name = 'Бензин'
 
-    def burn(self, consumed_quantity):
-        super().burn(consumed_quantity)
-        return f'Израсходовано {consumed_quantity} ед. бензина'
-
 
 class DieselFuel(AbstractFuel):
     _name = 'Дизель'
-
-    def burn(self, consumed_quantity):
-        super().burn(consumed_quantity)
-        return f'Израсходовано {consumed_quantity} ед. дизеля'
 
 
 class BatteryFuel(AbstractFuel):
     _name = 'Батарея'
 
-    def burn(self, consumed_quantity):
-        super().burn(consumed_quantity)
-        return f'Израсходовано {consumed_quantity} ед. батареи'
-
 
 class HydrogenFuel(AbstractFuel):
     _name = 'Водород'
-
-    def burn(self, consumed_quantity):
-        super().burn(consumed_quantity)
-        return f'Израсходовано {consumed_quantity} ед. водорода'
 
 
 class UraniumFuel(AbstractFuel):
     _name = 'Уран'
 
-    def burn(self, consumed_quantity):
-        super().burn(consumed_quantity)
-        return f'Израсходовано {consumed_quantity} ед. урана'
-
 
 class AntimatterFuel(AbstractFuel):
     _name = 'Антиматерия'
-
-    def burn(self, consumed_quantity):
-        super().burn(consumed_quantity)
-        return f'Израсходовано {consumed_quantity} ед. антиматерии'
 
 
 # =====> Топливные заводы <=====

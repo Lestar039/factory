@@ -31,18 +31,12 @@ class AbstractTransport:
 class GroundTransport(AbstractTransport):
     _name = 'Наземный транспорт'
 
-    def move(self, distance):
-        super().move(distance)
-
     def move_type(self):
         return 'едет'
 
 
 class WaterTransport(AbstractTransport):
     _name = 'Водный транспорт'
-
-    def move(self, distance):
-        super().move(distance)
 
     def move_type(self):
         return 'плывет'
@@ -51,9 +45,6 @@ class WaterTransport(AbstractTransport):
 class AirTransport(AbstractTransport):
     _name = 'Воздушный транспорт'
     distance: float
-
-    # def move(self, distance):
-    #     super().move(distance)
 
     def move_type(self):
         return 'летит'
@@ -103,17 +94,17 @@ class TransportFactory:
 
     def create_transport(self, name, type_transport, engines, movers, fuel, fuel_consumption, transport_speed):
         if type_transport == 'Наземное':
-            print(f'Создано: {type_transport} транспортное средство')
-            return GroundTransportFactory().create_transport(
+            result = GroundTransportFactory().create_transport(
                 name, type_transport, engines, movers, fuel, fuel_consumption, transport_speed)
         elif type_transport == 'Водное':
-            print(f'Создано: {type_transport} транспортное средство')
-            return WaterTransportFactory().create_transport(
+            result = WaterTransportFactory().create_transport(
                 name, type_transport, engines, movers, fuel, fuel_consumption, transport_speed)
         elif type_transport == 'Воздушное':
-            print(f'Создано: {type_transport} транспортное средство')
-            return AirTransportFactory().create_transport(
+            result = AirTransportFactory().create_transport(
                 name, type_transport, engines, movers, fuel, fuel_consumption, transport_speed)
+
+        print(f'Создано: {type_transport} транспортное средство')
+        return result
 
 
 if __name__ == "__main__":
