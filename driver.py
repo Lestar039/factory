@@ -12,7 +12,7 @@ class AbstractPerson:
 
     def set_transport(self, transport):
         """
-        Передаем трпнспорт пилоту
+        Передаем транспорт пилоту
         """
         self.transport = transport
 
@@ -28,7 +28,7 @@ class AbstractPerson:
         Контроль расхода топлива
         """
 
-        for moving in self.command.command_moving:
+        for moving in self.command:
 
             if moving.direction == DistanceDirection.Forward:
                 print(f'{self.transport._name} {self.transport.move_type()} вперед {moving.distance} ед.')

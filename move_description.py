@@ -66,20 +66,6 @@ class CreateRoute:
         return new_commands
 
 
-class Route:
-    """
-    Извлекает 1-й элемент из списка команд
-    """
-
-    def __init__(self, command_moving):
-        self.command_moving = command_moving
-
-    def make_move(self):
-        for command in self.command_moving:
-            return command
-
-
 if __name__ == "__main__":
     command = ['forward 100', 'backward 300', 'left 30', 'right 40', 'forward 160']
     create_1 = CreateRoute().create_route(command)
-    route_1 = Route(create_1).make_move()
