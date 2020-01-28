@@ -44,12 +44,9 @@ class AbstractPerson:
 
             if self.transport.fuel.total <= 0:
                 print('Закончилось топливо')
-                break
+                return
 
-        if self.transport.fuel.total <= 0:
-            pass
-        else:
-            print('Прибыли на место назначения')
+        print('Прибыли на место назначения')
 
 
 class Driver(AbstractPerson):
